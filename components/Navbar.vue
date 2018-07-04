@@ -113,27 +113,18 @@
 				</li>
 			</ul>
             <ul class="nav navbar-nav navbar-nav-material navbar-right">
-				<li>
-					<a href="changelog.html">
-						<i class="icon-history position-left"></i>
-						Changelog
-						<span class="label label-inline position-right bg-success-400">1.5</span>
-					</a>
-				</li>
-
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-cog3"></i>
-						<span class="visible-xs-inline-block position-right">Share</span>
-						<span class="caret"></span>
+				<li class="dropdown dropdown-user">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="assets/images/placeholder.jpg" alt="">
+						<span>Admin</span>
+						<i class="caret"></i>
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-						<li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-						<li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
 						<li class="divider"></li>
-						<li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
+						<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
 				</li>
 			</ul>
