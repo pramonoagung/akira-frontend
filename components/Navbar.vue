@@ -8,29 +8,27 @@
 
 		<div class="navbar-collapse collapse" id="navbar-second-toggle">
 			<ul class="nav navbar-nav navbar-nav-material">
-				<li><a href="index.html"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+				<li><nuxt-link :to="'/dashboard'"><i class="icon-display4 position-left"></i> Dashboard</nuxt-link></li>
 
 				<li class="dropdown mega-menu mega-menu-wide">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-puzzle4 position-left"></i> Components <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog5 position-left"></i> Aplikasi <span class="caret"></span></a>
 
 					<div class="dropdown-menu dropdown-content">
 						<div class="dropdown-content-body">
 							<div class="row">
 								<div class="col-md-3">
-									<span class="menu-heading underlined">Forms</span>
+									<span class="menu-heading underlined">Management</span>
 									<ul class="menu-list">
 										<li>
-											<a href="#"><i class="icon-file-css"></i> JSON forms</a>
-											<ul>
-												<li><a href="alpaca_basic.html">Basic inputs</a></li>
-												<li><a href="alpaca_advanced.html">Advanced inputs</a></li>
-												<li><a href="alpaca_controls.html">Controls</a></li>
-											</ul>
+											<a href="#"><i class="icon-users"></i> Terapists</a>
+										</li>
+										<li>
+											<nuxt-link :to="'/customers'"><i class="icon-users"></i> Customers</nuxt-link>
 										</li>
 									</ul>
 								</div>
 								<div class="col-md-3">
-									<span class="menu-heading underlined">Appearance</span>
+									<span class="menu-heading underlined">Terapist</span>
 									<ul class="menu-list">
 										<li>
 											<a href="#"><i class="icon-browser"></i> Content panels</a>
@@ -75,7 +73,7 @@
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-strategy position-left"></i> Starter kit <span class="caret"></span>
+						<i class="icon-cog5 position-left"></i> Aplikas <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu width-200">
@@ -115,7 +113,7 @@
             <ul class="nav navbar-nav navbar-nav-material navbar-right">
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="assets/images/placeholder.jpg" alt="">
+						<img src="/images/placeholder.jpg" alt="">
 						<span>Admin</span>
 						<i class="caret"></i>
 					</a>
@@ -124,7 +122,7 @@
 						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
 						<li class="divider"></li>
 						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-						<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+						<li><nuxt-link :to="'/'"><i class="icon-switch2"></i> Logout</nuxt-link></li>
 					</ul>
 				</li>
 			</ul>
