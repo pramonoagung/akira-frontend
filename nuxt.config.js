@@ -26,6 +26,8 @@ module.exports = {
       { type: "text/javascript", src: "/js/core/libraries/jquery.min.js" },
       { type: "text/javascript", src: "/js/core/libraries/bootstrap.min.js" },
       { type: "text/javascript", src: "/js/core/app.js" },
+
+      // Pages
       { type: "text/javascript", src: "/js/pages/dashboard.js" },
       {
         type: "text/javascript",
@@ -35,10 +37,24 @@ module.exports = {
         type: "text/javascript",
         src: "/js/pages/dashboard.js"
       },
+      {
+        type: "text/javascript",
+        src: "/js/pages/datatables_basic.js"
+      },
+
+      // Plugins
       { type: "text/javascript", src: "/js/plugins/loaders/pace.min.js" },
       {
         type: "text/javascript",
         src: "/js/plugins/ui/headroom/headroom.min.js"
+      },
+      {
+        type: "text/javascript",
+        src: "/js/plugins/tables/datatables/datatables.min.js"
+      },
+      {
+        type: "text/javascript",
+        src: "/js/plugins/forms/selects/select2.min.js"
       },
       { type: "text/javascript", src: "/js/plugins/ui/ripple.min.js" },
       { type: "text/javascript", src: "/js/plugins/loaders/blockui.min.js" },
