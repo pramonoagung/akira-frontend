@@ -16,16 +16,16 @@
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="panel panel-flat">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title" style="text-align:center"><b>Edit Voucher</b></h3>
+                                                <h3 class="panel-title" style="text-align:center"><b>Edit Admin</b></h3>
                                             </div>
 
                                             <div class="panel-body">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Kode">
+                                                    <input type="text" class="form-control" placeholder="Nama">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Nilai">
+                                                    <input type="text" class="form-control" placeholder="Alamat">
                                                 </div>
 
                                                 <div class="text-right">
