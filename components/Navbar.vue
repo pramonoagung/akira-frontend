@@ -12,21 +12,21 @@
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-cog5 position-left"></i> Aplikas <span class="caret"></span>
+						<i class="icon-cog5 position-left"></i> Aplikasi <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu width-200">
 						<li class="dropdown-submenu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Terapist</a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Terapis</a>
 							<ul class="dropdown-menu">
-								<li><nuxt-link to="/dashboard/aplikasi/terapis/histori">Histories</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/histori">Histori</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/rating">Rating</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/komisi">Komisi</nuxt-link></li>
-								<li><nuxt-link to="/dashboard/aplikasi/terapis/manajemen">Management</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/manajemen">Manajemen</nuxt-link></li>
 							</ul>
 						</li>
 						<li class="dropdown">
-							<nuxt-link to="/pelanggan"><i class="icon-users"></i> Customer</nuxt-link>
+							<nuxt-link to="/pelanggan"><i class="icon-users"></i> Pelanggan</nuxt-link>
 						</li>
 						<li><nuxt-link to="/"><i class="icon-align-center-horizontal"></i> Administrasi</nuxt-link></li>
 						<li><nuxt-link to="/"><i class="icon-cog5"></i> Laporan</nuxt-link></li>
