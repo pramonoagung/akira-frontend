@@ -22,7 +22,6 @@
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/histori">Histori</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/rating">Rating</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/komisi">Komisi</nuxt-link></li>
-								<li><nuxt-link to="/dashboard/aplikasi/terapis/manajemen">Manajemen</nuxt-link></li>
 							</ul>
 						</li>
 						<li class="dropdown">
