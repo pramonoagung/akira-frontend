@@ -38,7 +38,7 @@
               <div class="form-group">
                 <nuxt-link :to="'/dashboard'">
                   <button type="submit" class="btn bg-info btn-block">Login
-                </button>
+                  </button>
                 </nuxt-link>
               </div>
 
