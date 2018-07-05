@@ -19,14 +19,14 @@
 						<li class="dropdown-submenu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Terapist</a>
 							<ul class="dropdown-menu">
-								<li><nuxt-link to="/dashboard/aplikasi/terapists/histories">Histories</nuxt-link></li>
-								<li><nuxt-link to="/dashboard/aplikasi/terapists/rating">Rating</nuxt-link></li>
-								<li><nuxt-link to="/dashboard/aplikasi/terapists/komisi">Komisi</nuxt-link></li>
-								<li><nuxt-link to="/dashboard/aplikasi/terapists/management">Management</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/histori">Histories</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/rating">Rating</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/komisi">Komisi</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/manajemen">Management</nuxt-link></li>
 							</ul>
 						</li>
 						<li class="dropdown">
-							<nuxt-link to="/customers"><i class="icon-users"></i> Customer</nuxt-link>
+							<nuxt-link to="/pelanggan"><i class="icon-users"></i> Customer</nuxt-link>
 						</li>
 						<li><nuxt-link to="/"><i class="icon-align-center-horizontal"></i> Administrasi</nuxt-link></li>
 						<li><nuxt-link to="/"><i class="icon-cog5"></i> Laporan</nuxt-link></li>
