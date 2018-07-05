@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Navbar />
         <!-- Page container -->
         <div class="page-container">
 
@@ -80,10 +79,7 @@
     </div>
 </template>
 <script>
-import Navbar from "~/components/Navbar";
 export default {
-  components: {
-    Navbar
-  }
+  layout: "dashboard"
 };
 </script>
