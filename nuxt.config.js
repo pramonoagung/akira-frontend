@@ -41,6 +41,10 @@ module.exports = {
         type: "text/javascript",
         src: "/js/pages/datatables_basic.js"
       },
+      {
+        type: "text/javascript",
+        src: "/js/pages/form_layouts.js"
+      },
 
       // Plugins
       { type: "text/javascript", src: "/js/plugins/loaders/pace.min.js" },
@@ -55,6 +59,10 @@ module.exports = {
       {
         type: "text/javascript",
         src: "/js/plugins/forms/selects/select2.min.js"
+      },
+      {
+        type: "text/javascript",
+        src: "/js/plugins/forms/styling/uniform.min.js"
       },
       { type: "text/javascript", src: "/js/plugins/ui/ripple.min.js" },
       { type: "text/javascript", src: "/js/plugins/loaders/blockui.min.js" },
