@@ -33,7 +33,7 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<nuxt-link to="/aplikasi/reservasi"><i class="icon-users"></i> Reservasi</nuxt-link>
+							<nuxt-link to="/dashboard/aplikasi/reservasi"><i class="icon-users"></i> Reservasi</nuxt-link>
 						</li>
 						<li class="dropdown-submenu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Laporan</a>
