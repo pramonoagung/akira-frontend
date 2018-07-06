@@ -73,6 +73,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Jam (WIB)</th>
+                                    <th>Ruangan</th>
                                     <th>Status</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -81,6 +83,8 @@
                                 <tr>
                                     <td>1</td>
                                     <td>Marth</td>
+                                    <td>13.00 - 14.20</td>
+                                    <td>-</td>
                                     <td>
                                         <span class="label label-success">Kosong</span>
                                     </td>
@@ -94,7 +98,11 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
                                                         <a href="#">
-                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                            <i class="icon-transmission"></i> Ubah kosong</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-spinner10"></i> Ubah Update</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -104,6 +112,8 @@
                                 <tr>
                                     <td>2</td>
                                     <td>Yohan</td>
+                                    <td>09.00 - 11.23</td>
+                                    <td>Melati</td>
                                     <td>
                                         <span class="label label-danger">Tersisi</span>
                                     </td>
@@ -117,7 +127,11 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
                                                         <a href="#">
-                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                            <i class="icon-transmission"></i> Ubah kosong</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-spinner10"></i> Ubah Update</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -160,7 +174,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
                                                         <a href="#">
-                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                            <i class="icon-transmission"></i> Ubah Ditolak</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -184,7 +198,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
                                                         <a href="#">
-                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                            <i class="icon-transmission"></i> Ubah Diterima</a>
                                                     </li>
                                                 </ul>
                                             </li>
