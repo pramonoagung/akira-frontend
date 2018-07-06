@@ -45,6 +45,10 @@ module.exports = {
         type: "text/javascript",
         src: "/js/pages/form_layouts.js"
       },
+      {
+        type: "text/javascript",
+        src: "/js/pages/extra_fullcalendar.js"
+      },
 
       // Plugins
       { type: "text/javascript", src: "/js/plugins/loaders/pace.min.js" },
@@ -67,7 +71,12 @@ module.exports = {
       { type: "text/javascript", src: "/js/plugins/ui/ripple.min.js" },
       { type: "text/javascript", src: "/js/plugins/loaders/blockui.min.js" },
       { type: "text/javascript", src: "/js/plugins/ui/nicescroll.min.js" },
-      { type: "text/javascript", src: "/js/plugins/ui/drilldown.js" }
+      { type: "text/javascript", src: "/js/plugins/ui/drilldown.js" },
+      { type: "text/javascript", src: "/js/plugins/ui/moment/moment.min.js" },
+      {
+        type: "text/javascript",
+        src: "/js/plugins/ui/fullcalendar/fullcalendar.min.js"
+      }
     ]
   },
   /*
