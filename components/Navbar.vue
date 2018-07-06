@@ -25,7 +25,7 @@
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Manajemen</a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i> Manajemen</a>
 							<ul class="dropdown-menu">
 								<li><nuxt-link to="/dashboard/aplikasi/manajemen/terapis">Terapis</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/manajemen/voucher">Voucher</nuxt-link></li>
@@ -33,13 +33,13 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<nuxt-link to="/dashboard/aplikasi/kalender"><i class="icon-users"></i> Kalender</nuxt-link>
+							<nuxt-link to="/dashboard/aplikasi/kalender"><i class="icon-calendar22"></i> Kalender</nuxt-link>
 						</li>
 						<li class="dropdown">
-							<nuxt-link to="/dashboard/aplikasi/pembayaran"><i class="icon-money"></i> Pembayaran</nuxt-link>
+							<nuxt-link to="/dashboard/aplikasi/pembayaran"><i class="icon-wallet"></i> Pembayaran</nuxt-link>
 						</li>
 						<li class="dropdown-submenu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Laporan</a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-clipboard2"></i> Laporan</a>
 							<ul class="dropdown-menu">
 								<li><nuxt-link to="/dashboard/aplikasi/laporan/transaksi"><i class="icon-cog5"></i> Transaksi</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/laporan/pelanggan"><i class="icon-users"></i> Pelanggan</nuxt-link></li>
