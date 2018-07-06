@@ -71,6 +71,7 @@
                         <table class="table datatable-basic table-hover">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th class="text-center">Aksi</th>
@@ -78,9 +79,100 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>1</td>
                                     <td>Marth</td>
                                     <td>
                                         <span class="label label-success">Kosong</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Yohan</td>
+                                    <td>
+                                        <span class="label label-danger">Tersisi</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Daftar Reservasi</h5>
+                        </div>
+                        <table class="table datatable-basic table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Tanggal Pemesanan</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Marth</td>
+                                    <td>17 Agustus 2019</td>
+                                    <td>
+                                        <span class="label label-success">Diterima</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-bubbles2"></i> Kirim notifikasi</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Martin Praja</td>
+                                    <td>32 Desember 2019</td>
+                                    <td>
+                                        <span class="label label-default">Ditolak</span>
                                     </td>
                                     <td class="text-center">
                                         <ul class="icons-list">
