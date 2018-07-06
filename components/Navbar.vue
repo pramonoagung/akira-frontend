@@ -39,6 +39,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Laporan</a>
 							<ul class="dropdown-menu">
 								<li><nuxt-link to="/dashboard/aplikasi/laporan/transaksi"><i class="icon-cog5"></i> Transaksi</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/laporan/pelanggan"><i class="icon-users"></i> Pelanggan</nuxt-link></li>
 							</ul>
 						</li>
 					</ul>
