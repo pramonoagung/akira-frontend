@@ -35,6 +35,9 @@
 						<li class="dropdown">
 							<nuxt-link to="/dashboard/aplikasi/kalender"><i class="icon-users"></i> Kalender</nuxt-link>
 						</li>
+						<li class="dropdown">
+							<nuxt-link to="/dashboard/aplikasi/pembayaran"><i class="icon-money"></i> Pembayaran</nuxt-link>
+						</li>
 						<li class="dropdown-submenu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Laporan</a>
 							<ul class="dropdown-menu">
