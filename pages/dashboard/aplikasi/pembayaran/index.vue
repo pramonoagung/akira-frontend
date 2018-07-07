@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Pembayaran</h2>
+        <center><h1>Waiting for the APIs</h1></center>
     </div>
 </template>
 <script>

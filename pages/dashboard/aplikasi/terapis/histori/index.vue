@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>Histori Terapis</h3>
+        <center><h3>Waiting for the Apis</h3></center>
     </div>
 </template>
 <script>
@@ -8,4 +8,3 @@ export default {
   layout: "dashboard"
 };
 </script>
-
