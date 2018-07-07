@@ -29,6 +29,21 @@
 </template>
 <script>
 export default {
-  layout: "dashboard"
+  layout: "dashboard",
+  head() {
+    return {
+      script: [
+        {
+          type: "text/javascript",
+          src: "/js/pages/extra_fullcalendar.js"
+        },
+        { type: "text/javascript", src: "/js/plugins/ui/moment/moment.min.js" },
+        {
+          type: "text/javascript",
+          src: "/js/plugins/ui/fullcalendar/fullcalendar.min.js"
+        }
+      ]
+    };
+  }
 };
 </script>
