@@ -19,6 +19,7 @@
 						<li class="dropdown-submenu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Terapis</a>
 							<ul class="dropdown-menu">
+								<li><nuxt-link to="/dashboard/aplikasi/terapis/workshift">Workshift</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/histori">Histori</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/rating">Rating</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/terapis/komisi">Komisi</nuxt-link></li>
