@@ -12,7 +12,14 @@
                 <!-- Basic datatable -->
                 <div class="panel panel-flat">
                     <div class="panel-heading">
-                        <h5 class="panel-title">Daftar Admin</h5>
+                        <h5 class="panel-title">Daftar Voucher</h5>
+                        <div class="heading-elements">
+							    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/tambah">
+                                    <button type="button" class="btn btn-success btn-raised btn-sm legitRipple">
+                                    <i class="icon-plus2 position-left"></i>Tambah
+                                    </button>
+                                </nuxt-link>
+	                	    </div>
                     </div>
                     <table class="table datatable-basic table-hover">
                         <thead>
@@ -49,6 +56,11 @@
                                                         <i class="icon-pencil"></i> Edit
                                                     </nuxt-link>
                                                 </li>
+                                                <li>
+                                                    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/1/edit">
+                                                        <i class="icon-trash"></i> Hapus
+                                                    </nuxt-link>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -75,6 +87,11 @@
                                                 <li>
                                                     <a href="#">
                                                         <i class="icon-pencil"></i> Edit</a>
+                                                </li>
+                                                <li>
+                                                    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/1/edit">
+                                                        <i class="icon-trash"></i> Hapus
+                                                    </nuxt-link>
                                                 </li>
                                             </ul>
                                         </li>
