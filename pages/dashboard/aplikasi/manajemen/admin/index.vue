@@ -13,6 +13,13 @@
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title">Daftar Admin</h5>
+                        <div class="heading-elements">
+							    <nuxt-link to="/dashboard/aplikasi/manajemen/admin/tambah">
+                                    <button type="button" class="btn btn-success btn-raised btn-sm legitRipple">
+                                    <i class="icon-plus2 position-left"></i>Tambah
+                                    </button>
+                                </nuxt-link>
+	                	    </div>
                     </div>
                     <table class="table datatable-basic table-hover">
                         <thead>
@@ -32,7 +39,7 @@
                                 </td>
                                 <td>22 Jun 1972</td>
                                 <td>
-                                    <span class="label label-success">Terverivikasi</span>
+                                    <span class="label label-success">Aktif</span>
                                 </td>
                                 <td class="text-center">
                                     <ul class="icons-list">
@@ -47,6 +54,11 @@
                                                         <i class="icon-pencil"></i> Edit
                                                     </nuxt-link>
                                                 </li>
+                                                <li>
+                                                    <nuxt-link to="#">
+                                                        <i class="icon-pencil"></i> Hapus
+                                                    </nuxt-link>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -59,7 +71,7 @@
                                 </td>
                                 <td>22 Jun 1972</td>
                                 <td>
-                                    <span class="label label-default">Belum terverivikasi</span>
+                                    <span class="label label-default">Tidak Aktif</span>
                                 </td>
                                 <td class="text-center">
                                     <ul class="icons-list">
@@ -72,6 +84,11 @@
                                                 <li>
                                                     <a href="#">
                                                         <i class="icon-pencil"></i> Edit</a>
+                                                </li>
+                                                <li>
+                                                    <nuxt-link to="#">
+                                                        <i class="icon-pencil"></i> Hapus
+                                                    </nuxt-link>
                                                 </li>
                                             </ul>
                                         </li>
