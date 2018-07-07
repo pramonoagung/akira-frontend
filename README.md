@@ -1,6 +1,6 @@
 # AKIRA Dashboard
 
-> Project files for AKIRA
+> Project files for AKIRA. Stable version on master branch
 
 ## Build Setup
 
