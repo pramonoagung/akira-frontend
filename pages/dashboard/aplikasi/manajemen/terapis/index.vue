@@ -13,7 +13,7 @@
                         <div class="panel-heading">
                             <h5 class="panel-title">Daftar Terapist</h5>
                             <div class="heading-elements">
-							    <nuxt-link to="/dashboard/aplikasi/terapis/manajemen/tambah">
+							    <nuxt-link to="/dashboard/aplikasi/manajemen/terapis/tambah">
                                     <button type="button" class="btn btn-success btn-raised btn-sm legitRipple">
                                     <i class="icon-plus2 position-left"></i>Tambah
                                     </button>
