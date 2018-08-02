@@ -11,7 +11,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            
+
                             <div class="row">
                                 <div class="col-lg-3">
 
@@ -73,49 +73,19 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Jam (WIB)</th>
-                                    <th>Ruangan</th>
                                     <th>Status</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Marth</td>
-                                    <td>13.00 - 14.20</td>
-                                    <td>-</td>
-                                    <td>
-                                        <span class="label label-success">Kosong</span>
+                                <tr v-for=" (single, index) in terapis" :key="single.id">
+                                    <td>{{index+1}}</td>
+                                    <td>{{single.nama}}</td>
+                                    <td v-if="single.status == 'Tersedia'">
+                                        <span class="label label-success">{{single.status}}</span>
                                     </td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah kosong</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-spinner10"></i> Ubah Update</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Yohan</td>
-                                    <td>09.00 - 11.23</td>
-                                    <td>Melati</td>
-                                    <td>
-                                        <span class="label label-danger">Tersisi</span>
+                                    <td v-else>
+                                        <span class="label label-danger">{{single.status}}</span>
                                     </td>
                                     <td class="text-center">
                                         <ul class="icons-list">
@@ -141,7 +111,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h5 class="panel-title">Daftar Reservasi</h5>
@@ -215,7 +185,14 @@
     </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-  layout: "dashboard"
+  layout: "dashboard",
+  async asyncData() {
+    const { data } = await axios.get(
+      process.env.myapi + "/graphql?query={terapis{id,nama,rating,status}}"
+    );
+    return { terapis: data.data.terapis };
+  }
 };
 </script>

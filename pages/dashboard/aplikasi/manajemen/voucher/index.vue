@@ -26,23 +26,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Kode</th>
-                                <th>Nilai</th>
-                                <th>Kuota Tersedia</th>
-                                <th>Status Akun</th>
+                                <th>Jenis</th>
+                                <th>Tanggal Kadaluarsa</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    WKWK
-                                </td>
-                                <td>Rp 2500</td>
-                                <td>25</td>
-                                <td>
-                                    <span class="label label-success">Aktif</span>
-                                </td>
+                            <tr v-for="(voucher, index) in vouchers" :key="voucher.id">
+                                <td>{{index+1}}</td>
+                                <td>{{voucher.kode}}</td>
+                                <td>{{voucher.jenis}}</td>
+                                <td>{{voucher.tanggal_kadaluarsa}}</td>
                                 <td class="text-center">
                                     <ul class="icons-list">
                                         <li class="dropdown">
@@ -66,38 +60,6 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    HAHA
-                                </td>
-                                <td>Rp 10000</td>
-                                <td>0</td>
-                                <td>
-                                    <span class="label label-default">Kadaluarsa</span>
-                                </td>
-                                <td class="text-center">
-                                    <ul class="icons-list">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon-pencil"></i> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/1/edit">
-                                                        <i class="icon-trash"></i> Hapus
-                                                    </nuxt-link>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -108,7 +70,15 @@
     </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-  layout: "dashboard"
+  layout: "dashboard",
+  async asyncData() {
+    const { data } = await axios.get(
+      process.env.myapi +
+        "/graphql?query={Voucher{kode,jenis,tanggal_kadaluarsa}}"
+    );
+    return { vouchers: data.data.Voucher };
+  }
 };
 </script>

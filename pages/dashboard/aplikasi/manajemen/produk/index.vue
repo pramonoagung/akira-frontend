@@ -11,9 +11,9 @@
 
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title">Daftar Terapist</h5>
+                            <h5 class="panel-title">Daftar Produk</h5>
                             <div class="heading-elements">
-							    <nuxt-link to="/dashboard/aplikasi/manajemen/terapis/tambah">
+							    <nuxt-link to="/dashboard/aplikasi/manajemen/produk/tambah">
                                     <button type="button" class="btn btn-success btn-raised btn-sm legitRipple">
                                     <i class="icon-plus2 position-left"></i>Tambah
                                     </button>
@@ -26,22 +26,17 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Rating</th>
-                                    <th>Status</th>
+                                    <th>Waktu</th>
+                                    <th>Harga</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for=" (single, index) in terapis" :key="single.id">
+                                <tr v-for=" (single, index) in produk" :key="single.id">
                                     <td>{{index+1}}</td>
                                     <td>{{single.nama}}</td>
-                                    <td><span class="badge badge-flat border-warning text-warning-600">{{single.rating}}</span></td>
-                                    <td v-if="single.status">
-                                        <span class="label label-success">Tersedia</span>
-                                    </td>
-                                    <td v-else>
-                                        <span class="label label-danger">Tidak Tersedia</span>
-                                    </td>
+                                    <td><span class="badge badge-flat border-warning text-warning-600">{{single.waktu}}</span></td>
+                                    <td>Rp {{single.harga}}</td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -50,17 +45,9 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li @click="onUpdate(single)">
-                                                        <a v-if="single.status">
-                                                            <i class="icon-transmission"></i> Ubah tidak tersedia
-                                                        </a>
-                                                        <a v-else>
-                                                            <i class="icon-transmission"></i> Ubah tersedia
-                                                        </a>
-                                                    </li>
                                                     <li>
-                                                        <nuxt-link :to="'/dashboard/aplikasi/manajemen/terapis/'+single.id+'/edit'">
-                                                            <i class="icon-pencil"></i> Edit Terapis
+                                                        <nuxt-link :to="'/dashboard/aplikasi/manajemen/produk/'+single.id+'/edit'">
+                                                            <i class="icon-pencil"></i> Edit Produk
                                                         </nuxt-link>
                                                     </li>
                                                     <li @click="onDelete(single)">
@@ -89,48 +76,27 @@ export default {
   layout: "dashboard",
   data() {
     return {
-      terapis: {
-        status: ""
-      }
+      produk: {}
     };
   },
   async asyncData() {
     const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={terapis{id,nama,rating,status}}"
+      process.env.myapi + "/graphql?query={produk{id,nama,waktu,harga}}"
     );
-    return { terapis: data.data.terapis };
+    return { produk: data.data.produk };
   },
   methods: {
-    async onUpdate(params) {
-      this.terapis.status = !params.status;
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation{updateTerapis(id:" +
-            params.id +
-            ",status:" +
-            this.terapis.status +
-            "){nama,status}}"
-        )
-        .then(function(response) {
-          //Calling asyncData [WIP]
-          window.location = "/dashboard/aplikasi/manajemen/terapis";
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     async onDelete(params) {
       await axios
         .post(
           process.env.myapi +
-            "/graphql?query=mutation{deleteTerapis(id:" +
+            "/graphql?query=mutation{deleteProduk(id:" +
             params.id +
-            "){nama,status}}"
+            "){nama}}"
         )
         .then(function(response) {
           //Calling asyncData [WIP]
-          window.location = "/dashboard/aplikasi/manajemen/terapis";
+          window.location = "/dashboard/aplikasi/manajemen/produk";
         })
         .catch(function(error) {
           console.log(error);

@@ -11,25 +11,17 @@
 
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6">
-                            <form  @submit.prevent="onSave">
+                            <form @submit.prevent="onUpdate">
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="panel panel-flat">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title" style="text-align:center"><b>Tambah Voucher</b></h3>
+                                                <h3 class="panel-title" style="text-align:center"><b>Edit Terapis {{terapis.nama}}</b></h3>
                                             </div>
 
                                             <div class="panel-body">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" v-model="voucher.kode" required placeholder="Kode">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" v-model="voucher.jenis" required placeholder="Jenis">
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <input type="date" class="form-control" v-model="voucher.tanggal_kadaluarsa" required placeholder="Tanggal Kadaluarsa">
+                                                    <input type="text" v-model="terapis.nama" class="form-control" placeholder="Nama">
                                                 </div>
 
                                                 <div class="text-right">
@@ -57,35 +49,38 @@ export default {
   layout: "dashboard",
   data() {
     return {
-      voucher: {
-        kode: null,
-        jenis: null,
-        tanggal_kadaluarsa: null
+      terapis: {
+        nama: "AA",
+        rating: "",
+        status: ""
       }
     };
   },
+  async asyncData({ params }) {
+    const { data } = await axios.get(
+      process.env.myapi +
+        "/graphql?query={terapis(id:1){id,nama,rating,status}}"
+    );
+    return { terapis: data.data.terapis };
+  },
   methods: {
-    onCancel() {
-      this.$router.push("/dashboard/aplikasi/manajemen/voucher");
-    },
-    onSave() {
+    onUpdate(param) {
       axios
         .post(
           process.env.myapi +
-            '/graphql?query=mutation{CreateVoucher(kode:"' +
-            this.voucher.kode +
-            '", jenis:"' +
-            this.voucher.jenis +
-            '", tanggal_kadaluarsa:"' +
-            this.voucher.tanggal_kadaluarsa +
-            '"){kode}}'
+            '/graphql?query=mutation{updateTerapis(id:"' +
+            this.params.id +
+            ',nama:"' +
+            this.terapis.nama +
+            '"){nama}}'
         )
-        .then(
-          response =>
-            // RESOLVE WIP
-            (window.location = "/dashboard/aplikasi/manajemen/voucher")
-        )
-        .catch(error => console.log(error));
+        .then(function(response) {})
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    onCancel() {
+      this.$router.push("/dashboard/aplikasi/manajemen/terapis");
     }
   }
 };

@@ -29,6 +29,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i> Manajemen</a>
 							<ul class="dropdown-menu">
 								<li><nuxt-link to="/dashboard/aplikasi/manajemen/terapis">Terapis</nuxt-link></li>
+								<li><nuxt-link to="/dashboard/aplikasi/manajemen/produk">Produk</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/manajemen/voucher">Voucher</nuxt-link></li>
 								<li><nuxt-link to="/dashboard/aplikasi/manajemen/admin">Admin</nuxt-link></li>
 							</ul>
