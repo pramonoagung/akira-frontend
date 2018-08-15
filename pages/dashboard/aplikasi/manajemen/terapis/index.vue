@@ -27,7 +27,6 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Rating</th>
-                                    <th>Status</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -36,12 +35,6 @@
                                     <td>{{index+1}}</td>
                                     <td>{{single.nama}}</td>
                                     <td><span class="badge badge-flat border-warning text-warning-600">{{single.rating}}</span></td>
-                                    <td v-if="single.status">
-                                        <span class="label label-success">Tersedia</span>
-                                    </td>
-                                    <td v-else>
-                                        <span class="label label-danger">Tidak Tersedia</span>
-                                    </td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -50,14 +43,6 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li @click="onUpdate(single)">
-                                                        <a v-if="single.status">
-                                                            <i class="icon-transmission"></i> Ubah tidak tersedia
-                                                        </a>
-                                                        <a v-else>
-                                                            <i class="icon-transmission"></i> Ubah tersedia
-                                                        </a>
-                                                    </li>
                                                     <li>
                                                         <nuxt-link :to="'/dashboard/aplikasi/manajemen/terapis/'+single.id+'/edit'">
                                                             <i class="icon-pencil"></i> Edit Terapis
@@ -96,9 +81,9 @@ export default {
   },
   async asyncData() {
     const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={terapis{id,nama,rating,status}}"
+      process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
     );
-    return { terapis: data.data.terapis };
+    return { terapis: data.data.KaryawanQuery };
   },
   methods: {
     async onUpdate(params) {
@@ -124,9 +109,9 @@ export default {
       await axios
         .post(
           process.env.myapi +
-            "/graphql?query=mutation{deleteTerapis(id:" +
+            "/graphql?query=mutation{DeleteKaryawan(id:" +
             params.id +
-            "){nama,status}}"
+            "){id,uuid,nip,nama,rating}}"
         )
         .then(function(response) {
           //Calling asyncData [WIP]

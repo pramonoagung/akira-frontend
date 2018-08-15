@@ -16,12 +16,24 @@
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="panel panel-flat">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title" style="text-align:center"><b>Edit Produk {{terapis.nama}}</b></h3>
+                                                <h3 class="panel-title" style="text-align:center"><b>Edit Produk</b></h3>
                                             </div>
 
                                             <div class="panel-body">
                                                 <div class="form-group">
-                                                    <input type="text" v-model="terapis.nama" class="form-control" placeholder="Nama">
+                                                    <input type="text" class="form-control" placeholder="Nama">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" v-model="produk.kode" class="form-control" placeholder="kode">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" v-model="produk.waktu" class="form-control" placeholder="Waktu">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" v-model="produk.harga" class="form-control" placeholder="Harga">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" v-model="produk.deskripsi" class="form-control" placeholder="Deskripsi">
                                                 </div>
 
                                                 <div class="text-right">
@@ -49,33 +61,29 @@ export default {
   layout: "dashboard",
   data() {
     return {
-      terapis: {
-        nama: "AA",
-        rating: "",
-        status: ""
+      produk: {
+        nama: "",
+        kode: "WYSIWG",
+        waktu: "",
+        harga: "",
+        deskripsi: ""
       }
     };
   },
-  async asyncData({ params }) {
+  async created({ params }) {
     const { data } = await axios.get(
       process.env.myapi +
-        "/graphql?query={terapis(id:" +
+        "/graphql?query={produk(id:" +
         params.id +
-        "){id,nama,rating,status}}"
+        "){id,nama,kode,waktu, harga, deskripsi}}"
     );
-    return { terapis: data.data.terapis };
+    return { produk: data.data.produk };
   },
   methods: {
     onUpdate(param) {
+      console.log(produk);
       axios
-        .post(
-          process.env.myapi +
-            '/graphql?query=mutation{updateTerapis(id:"' +
-            this.params.id +
-            ',nama:"' +
-            this.terapis.nama +
-            '"){nama}}'
-        )
+        .post(process.env.myapi + "")
         .then(function(response) {})
         .catch(function(error) {
           console.log(error);

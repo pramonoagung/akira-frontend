@@ -20,7 +20,7 @@
                                 </nuxt-link>
 	                	    </div>
                         </div>
-
+                        
                         <table class="table datatable-basic table-hover">
                             <thead>
                                 <tr>
@@ -101,6 +101,9 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    check() {
+      console.log(this.$store.getters);
     }
   }
 };

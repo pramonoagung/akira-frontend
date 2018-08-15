@@ -46,14 +46,14 @@
 
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li>
-                                                    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/1/edit">
+                                                    <a @click="onEdit(voucher)">
                                                         <i class="icon-pencil"></i> Edit
-                                                    </nuxt-link>
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/1/edit">
+                                                    <a @click="onDelete(voucher)">
                                                         <i class="icon-trash"></i> Hapus
-                                                    </nuxt-link>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -76,9 +76,43 @@ export default {
   async asyncData() {
     const { data } = await axios.get(
       process.env.myapi +
-        "/graphql?query={Voucher{kode,jenis,tanggal_kadaluarsa}}"
+        "/graphql?query={Voucher{id,kode,jenis,jumlah,syarat,tanggal_kadaluarsa}}"
     );
     return { vouchers: data.data.Voucher };
+  },
+  methods: {
+    async onDelete(params) {
+      await axios
+        .post(
+          process.env.myapi +
+            "http://a99d67dc.ngrok.io/graphql?query=mutation{DeleteVoucher(id:" +
+            params.id +
+            "){id}"
+        )
+        .then(function(response) {
+          //Calling asyncData [WIP]
+          window.location = "/dashboard/aplikasi/manajemen/voucher";
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    async onEdit(params) {
+      await axios
+        .post(
+          process.env.myapi +
+            "http://a99d67dc.ngrok.io/graphql?query=mutation{Voucher(id:" +
+            params.id +
+            "){id}"
+        )
+        .then(function(response) {
+          //Calling asyncData [WIP]
+          window.location = "/dashboard/aplikasi/manajemen/voucher";
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 };
 </script>

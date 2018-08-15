@@ -73,7 +73,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Status</th>
+                                    <th>Rating</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -81,12 +81,7 @@
                                 <tr v-for=" (single, index) in terapis" :key="single.id">
                                     <td>{{index+1}}</td>
                                     <td>{{single.nama}}</td>
-                                    <td v-if="single.status == 'Tersedia'">
-                                        <span class="label label-success">{{single.status}}</span>
-                                    </td>
-                                    <td v-else>
-                                        <span class="label label-danger">{{single.status}}</span>
-                                    </td>
+                                    <td><span class="badge badge-flat border-warning text-warning-600">{{single.rating}}</span></td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -96,12 +91,8 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah kosong</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-spinner10"></i> Ubah Update</a>
+                                                        <a href="#" @click="this.$router.push('/dashboard/aplikasi/manajemen/terapis/'+single.id+'edit')">
+                                                            <i class="icon-pencil"></i> Edit</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -190,9 +181,9 @@ export default {
   layout: "dashboard",
   async asyncData() {
     const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={terapis{id,nama,rating,status}}"
+      process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
     );
-    return { terapis: data.data.terapis };
+    return { terapis: data.data.KaryawanQuery };
   }
 };
 </script>

@@ -62,7 +62,7 @@
 						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
 						<li class="divider"></li>
 						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-						<li><nuxt-link :to="'/'"><i class="icon-switch2"></i> Logout</nuxt-link></li>
+						<li><a ><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -71,3 +71,8 @@
 	<!-- /second navbar -->
     </div>
 </template>
+<script>
+import Cookies from "js-cookie";
+export default {};
+</script>
+

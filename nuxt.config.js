@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    myapi: process.env.myapi || "http://48e36888.ngrok.io"
+    myapi: process.env.myapi || "http://99885eea.ngrok.io"
   },
 
   /*
@@ -95,8 +95,5 @@ module.exports = {
         });
       }
     }
-  },
-  router: {
-    middleware: ["admin"]
   }
 };

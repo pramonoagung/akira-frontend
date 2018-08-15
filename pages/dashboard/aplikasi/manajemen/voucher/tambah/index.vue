@@ -27,6 +27,14 @@
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" v-model="voucher.jenis" required placeholder="Jenis">
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" v-model="voucher.jumlah" required placeholder="Jumlah">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" v-model="voucher.syarat" required placeholder="Syarat">
+                                                </div>
                                                 
                                                 <div class="form-group">
                                                     <input type="date" class="form-control" v-model="voucher.tanggal_kadaluarsa" required placeholder="Tanggal Kadaluarsa">
@@ -60,7 +68,8 @@ export default {
       voucher: {
         kode: null,
         jenis: null,
-        tanggal_kadaluarsa: null
+        tanggal_kadaluarsa: null,
+        syarat: null
       }
     };
   },
@@ -74,11 +83,15 @@ export default {
           process.env.myapi +
             '/graphql?query=mutation{CreateVoucher(kode:"' +
             this.voucher.kode +
-            '", jenis:"' +
+            '",jenis:"' +
             this.voucher.jenis +
-            '", tanggal_kadaluarsa:"' +
+            '",jumlah:"' +
+            this.voucher.jumlah +
+            '",syarat:"' +
+            this.voucher.syarat +
+            '",tanggal_kadaluarsa:"' +
             this.voucher.tanggal_kadaluarsa +
-            '"){kode}}'
+            '",logo_voucher:"http://www.reevolveclothing.com/wp-content/uploads/2018/05/simple-a-picture-of-pikachu-is-gun-shooting-detective-now-and-his-game-coming-to.jpg",logo_qr:"https://www.qrstuff.com/images/default_qrcode.png"){id,kode,jenis,jumlah,tanggal_kadaluarsa}}'
         )
         .then(
           response =>

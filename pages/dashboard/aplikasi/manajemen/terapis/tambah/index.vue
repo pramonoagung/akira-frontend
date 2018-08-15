@@ -23,6 +23,12 @@
                                                 <div class="form-group">
                                                     <input type="text" v-model="terapis.nama" required class="form-control" placeholder="Nama">
                                                 </div>
+                                                <div class="form-group">
+                                                    <input type="text" v-model="terapis.nip" required class="form-control" placeholder="NIP">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" v-model="terapis.uuid" required class="form-control" placeholder="UUID">
+                                                </div>
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
                                                     </button>
@@ -49,7 +55,9 @@ export default {
   data() {
     return {
       terapis: {
-        nama: ""
+        nama: "",
+        nip: "",
+        uuid: ""
       }
     };
   },
@@ -58,9 +66,13 @@ export default {
       axios
         .post(
           process.env.myapi +
-            '/graphql?query=mutation{createTerapis(nama:"' +
+            '/graphql?query=mutation{CreateKaryawan(uuid:"' +
+            this.terapis.uuid +
+            '", nip:"' +
+            this.terapis.nip +
+            '",nama:"' +
             this.terapis.nama +
-            '"){nama,status}}'
+            '"){id,uuid,nip,nama,rating}}'
         )
         .then(
           response =>
