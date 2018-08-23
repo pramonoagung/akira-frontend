@@ -26,6 +26,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Jenis Kemalin</th>
                                     <th>Rating</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -34,6 +35,8 @@
                                 <tr v-for=" (single, index) in terapis" :key="single.id">
                                     <td>{{index+1}}</td>
                                     <td>{{single.nama}}</td>
+                                    <td v-if="single.jenis_kelamin == 'l'">Laki-laki</td>
+                                    <td v-else>Perempuan</td>
                                     <td><span class="badge badge-flat border-warning text-warning-600">{{single.rating}}</span></td>
                                     <td class="text-center">
                                         <ul class="icons-list">
@@ -72,36 +75,14 @@
 import axios from "axios";
 export default {
   layout: "dashboard",
-  data() {
-    return {
-      terapis: {
-        status: ""
-      }
-    };
-  },
   async asyncData() {
     const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
+      process.env.myapi +
+        "/graphql?query={KaryawanQuery{id,nama,rating, jenis_kelamin}}"
     );
     return { terapis: data.data.KaryawanQuery };
   },
   methods: {
-    async onUpdate(params) {
-      this.terapis.status = !params.status;
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation+a{updateTerapis(id:" +
-            params.id +
-            ",status:" +
-            this.terapis.status +
-            "){nama,status}}"
-        )
-        .then(res => this.$router.push("/manajemen/terapis"))
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     async onDelete(params) {
       await axios
         .post(
@@ -110,7 +91,7 @@ export default {
             params.id +
             "){id,uuid,nip,nama,rating}}"
         )
-        .then(res => this.$router.push("/manajemen/terapis"))
+        .then(res => this.$router.push("/terapis/manajemen"))
         .catch(function(error) {
           console.log(error);
         });
