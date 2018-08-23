@@ -66,45 +66,6 @@
 
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title">Daftar Terapist</h5>
-                        </div>
-                        <table class="table datatable-basic table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Rating</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for=" (single, index) in terapis" :key="single.id">
-                                    <td>{{index+1}}</td>
-                                    <td>{{single.nama}}</td>
-                                    <td><span class="badge badge-flat border-warning text-warning-600">{{single.rating}}</span></td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li>
-                                                        <a href="#" @click="this.$router.push('/dashboard/aplikasi/manajemen/terapis/'+single.id+'edit')">
-                                                            <i class="icon-pencil"></i> Edit</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
                             <h5 class="panel-title">Daftar Reservasi</h5>
                         </div>
                         <table class="table datatable-basic table-hover">
@@ -184,6 +145,14 @@ export default {
       process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
     );
     return { terapis: data.data.KaryawanQuery };
+  },
+  created() {},
+  methods: {
+    async getUser() {
+      await axios.get(
+        process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
+      );
+    }
   }
 };
 </script>

@@ -11,29 +11,25 @@
 
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6">
-                            <form @submit.prevent="onUpdate">
+                            <form  @submit.prevent="onSave">
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="panel panel-flat">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title" style="text-align:center"><b>Edit Produk</b></h3>
+                                                <h3 class="panel-title" style="text-align:center"><b>Tambah Voucher</b></h3>
                                             </div>
 
                                             <div class="panel-body">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Nama">
+                                                    <input type="text" class="form-control" v-model="voucher.kode" required placeholder="Kode">
                                                 </div>
+
                                                 <div class="form-group">
-                                                    <input type="text" v-model="produk.kode" class="form-control" placeholder="kode">
+                                                    <input type="number" class="form-control" v-model="voucher.jumlah" required placeholder="Jumlah">
                                                 </div>
+
                                                 <div class="form-group">
-                                                    <input type="text" v-model="produk.waktu" class="form-control" placeholder="Waktu">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" v-model="produk.harga" class="form-control" placeholder="Harga">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" v-model="produk.deskripsi" class="form-control" placeholder="Deskripsi">
+                                                    <input type="date" class="form-control" v-model="voucher.tanggal_kadaluarsa" required placeholder="Tanggal Kadaluarsa">
                                                 </div>
 
                                                 <div class="text-right">
@@ -61,36 +57,34 @@ export default {
   layout: "dashboard",
   data() {
     return {
-      produk: {
-        nama: "",
-        kode: "WYSIWG",
-        waktu: "",
-        harga: "",
-        deskripsi: ""
+      voucher: {
+        kode: "",
+        jenis: "",
+        tanggal_kadaluarsa: "",
+        syarat: ""
       }
     };
   },
-  async created({ params }) {
-    const { data } = await axios.get(
-      process.env.myapi +
-        "/graphql?query={produk(id:" +
-        params.id +
-        "){id,nama,kode,waktu, harga, deskripsi}}"
-    );
-    return { produk: data.data.produk };
-  },
   methods: {
-    onUpdate(param) {
-      console.log(produk);
-      axios
-        .post(process.env.myapi + "")
-        .then(function(response) {})
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     onCancel() {
-      this.$router.push("/dashboard/aplikasi/manajemen/produk");
+      this.$router.push("/voucher");
+    },
+    onSave() {
+      axios
+        .post(
+          process.env.myapi +
+            '/graphql?query=mutation+a{ CreateVoucher(kode: "' +
+            this.voucher.kode +
+            '", jumlah: "' +
+            this.voucher.jumlah +
+            '", tanggal_kadaluarsa: "' +
+            this.voucher.tanggal_kadaluarsa +
+            '", logo_voucher: "http://www.reevolveclothing.com/wp-content/uploads/2018/05/simple-a-picture-of-pikachu-is-gun-shooting-detective-now-and-his-game-coming-to.jpg") { id } }'
+        )
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => console.log(error));
     }
   }
 };

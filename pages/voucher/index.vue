@@ -14,7 +14,7 @@
                     <div class="panel-heading">
                         <h5 class="panel-title">Daftar Voucher</h5>
                         <div class="heading-elements">
-							    <nuxt-link to="/dashboard/aplikasi/manajemen/voucher/tambah">
+							    <nuxt-link to="/voucher/tambah">
                                     <button type="button" class="btn btn-success btn-raised btn-sm legitRipple">
                                     <i class="icon-plus2 position-left"></i>Tambah
                                     </button>
@@ -27,6 +27,7 @@
                                 <th>No</th>
                                 <th>Kode</th>
                                 <th>Jenis</th>
+                                <th>Jumlah</th>
                                 <th>Tanggal Kadaluarsa</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -36,6 +37,7 @@
                                 <td>{{index+1}}</td>
                                 <td>{{voucher.kode}}</td>
                                 <td>{{voucher.jenis}}</td>
+                                <td>{{voucher.jumlah}}</td>
                                 <td>{{voucher.tanggal_kadaluarsa}}</td>
                                 <td class="text-center">
                                     <ul class="icons-list">
@@ -74,10 +76,13 @@ import axios from "axios";
 export default {
   layout: "dashboard",
   async asyncData() {
-    const { data } = await axios.get(
-      process.env.myapi +
-        "/graphql?query={Voucher{id,kode,jenis,jumlah,syarat,tanggal_kadaluarsa}}"
-    );
+    const { data } = await axios
+      .get(
+        process.env.myapi +
+          "/graphql?query={Voucher{id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username,nama}}}"
+      )
+      .then()
+      .catch();
     return { vouchers: data.data.Voucher };
   },
   methods: {
@@ -85,13 +90,12 @@ export default {
       await axios
         .post(
           process.env.myapi +
-            "http://a99d67dc.ngrok.io/graphql?query=mutation{DeleteVoucher(id:" +
+            "/graphql?query=mutation+a{DeleteVoucher(id:" +
             params.id +
-            "){id}"
+            "){id kode}}"
         )
-        .then(function(response) {
-          //Calling asyncData [WIP]
-          window.location = "/dashboard/aplikasi/manajemen/voucher";
+        .then(res => {
+          this.$router.push("/voucher");
         })
         .catch(function(error) {
           console.log(error);
@@ -101,7 +105,7 @@ export default {
       await axios
         .post(
           process.env.myapi +
-            "http://a99d67dc.ngrok.io/graphql?query=mutation{Voucher(id:" +
+            "/graphql?query=mutation{Voucher(id:" +
             params.id +
             "){id}"
         )

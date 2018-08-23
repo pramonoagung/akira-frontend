@@ -24,10 +24,7 @@
                                                     <input type="text" v-model="terapis.nama" required class="form-control" placeholder="Nama">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" v-model="terapis.nip" required class="form-control" placeholder="NIP">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" v-model="terapis.uuid" required class="form-control" placeholder="UUID">
+                                                    <input type="text" v-model="terapis.jk" required class="form-control" placeholder="Jenis Kelamin">
                                                 </div>
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
@@ -56,8 +53,7 @@ export default {
     return {
       terapis: {
         nama: "",
-        nip: "",
-        uuid: ""
+        jk: ""
       }
     };
   },
@@ -66,23 +62,19 @@ export default {
       axios
         .post(
           process.env.myapi +
-            '/graphql?query=mutation{CreateKaryawan(uuid:"' +
-            this.terapis.uuid +
-            '", nip:"' +
-            this.terapis.nip +
-            '",nama:"' +
+            '/graphql?query=mutation{CreateKaryawan(nama:"' +
             this.terapis.nama +
-            '"){id,uuid,nip,nama,rating}}'
+            '",jenis_kelamin:"' +
+            this.terapis.jk +
+            '"){nip,nama}}'
         )
-        .then(
-          response =>
-            // RESOLVE WIP
-            (window.location = "/dashboard/aplikasi/manajemen/terapis")
-        )
+        .then(res => console.log(res))
         .catch(error => console.log(error));
+      //.then(res => this.$router.push("/terapis/manajemen"))
     },
     onCancel() {
-      this.$router.push("/dashboard/aplikasi/manajemen/terapis");
+      //this.$router.push("/terapis/manajemen");
+      console.log(this);
     }
   }
 };

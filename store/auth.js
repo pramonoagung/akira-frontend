@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import createPersistedState from "vuex-persistedstate";
 
 export const state = () => ({
   auth: true,
@@ -22,8 +23,8 @@ export const mutations = {
     }
   },
   logout() {
-    console.log(12);
-    //Cookies.remove(credential.nama);
+    //Cookies.remove(state.credentials.nama, state.token);
+    state.auth = false;
   }
 };
 

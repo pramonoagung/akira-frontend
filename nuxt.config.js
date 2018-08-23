@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    myapi: process.env.myapi || "http://99885eea.ngrok.io"
+    myapi: process.env.myapi || "http://1d42171a.ngrok.io"
   },
 
   /*
