@@ -11,7 +11,14 @@
 
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title">Daftar Pelanggan</h5>
+                            <h5 class="panel-title">Daftar Admin</h5>
+                            <div class="heading-elements">
+							    <nuxt-link to="/admin/tambah">
+                                    <button type="button" class="btn btn-success btn-raised btn-sm legitRipple">
+                                    <i class="icon-plus2 position-left"></i>Tambah
+                                    </button>
+                                </nuxt-link>
+	                	    </div>
                         </div>
                         
                         <table class="table datatable-basic table-hover">
@@ -24,10 +31,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for=" (user, index) in users" :key="user.id">
-                                    <td>{{index+1}}</td>
-                                    <td>{{user.nama}}</td>
-                                    <td>{{user.username}}</td>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -37,8 +44,8 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <nuxt-link :to="'/laporan/pelanggan/'+user.id+'/edit'">
-                                                            <i class="icon-pencil"></i> Edit User
+                                                        <nuxt-link :to="'/admin/'+''+'/edit'">
+                                                            <i class="icon-pencil"></i> Edit Admin
                                                         </nuxt-link>
                                                     </li>
                                                     <li @click="onDelete(user)">
@@ -66,27 +73,13 @@ import axios from "axios";
 export default {
   layout: "dashboard",
   async asyncData() {
-    const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={users{id,nama,username}}"
-    );
-    return { users: data.data.users };
-  },
-  methods: {
-    async onDelete(params) {
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation+a{deleteProduk(id:" +
-            params.id +
-            "){nama}}"
-        )
-        .then(function(response) {
-          window.location("/laporan/pelanggan");
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
+    const { data } = await axios
+      .get(
+        process.env.myapi +
+          "/graphql?query={ users{ id nama username organizations{ nama scopes } } }"
+      )
+      .then(res => console.log(res.data.data))
+      .catch();
   }
 };
 </script>

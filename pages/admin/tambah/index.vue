@@ -73,8 +73,7 @@ export default {
       //.then(res => this.$router.push("/terapis/manajemen"))
     },
     onCancel() {
-      //this.$router.push("/terapis/manajemen");
-      console.log(this);
+      this.$router.push("/admin");
     }
   }
 };
