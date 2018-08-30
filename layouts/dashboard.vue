@@ -8,7 +8,7 @@
 <script>
 import Navbar from "@/components/Navbar";
 export default {
-  middleware: "auth",
+  middleware: ["check-auth", "auth"],
   components: {
     Navbar
   }

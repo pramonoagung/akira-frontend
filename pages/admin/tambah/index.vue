@@ -23,9 +23,6 @@
                                                 <div class="form-group">
                                                     <input type="text" v-model="terapis.nama" required class="form-control" placeholder="Nama">
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="text" v-model="terapis.jk" required class="form-control" placeholder="Jenis Kelamin">
-                                                </div>
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
                                                     </button>

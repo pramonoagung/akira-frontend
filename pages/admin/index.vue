@@ -27,14 +27,16 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Username</th>
+                                    <th>Penempatan & Privilage</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr v-for="(user, index) in users" :key="user.id">
+                                    <td>{{index+1}}</td>
+                                    <td>{{user.nama}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td><span v-for="(unit, index) in user.organizations" :key="index"><p>{{unit.nama}} - {{unit.scopes}}</p></span></td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -73,13 +75,11 @@ import axios from "axios";
 export default {
   layout: "dashboard",
   async asyncData() {
-    const { data } = await axios
-      .get(
-        process.env.myapi +
-          "/graphql?query={ users{ id nama username organizations{ nama scopes } } }"
-      )
-      .then(res => console.log(res.data.data))
-      .catch();
+    const { data } = await axios.get(
+      process.env.myapi +
+        '/graphql?query={users(scope:"admin"){id,nama,username,organizations{nama,scopes}}}'
+    );
+    return { users: data.data.users };
   }
 };
 </script>

@@ -97,7 +97,7 @@
 						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
 						<li class="divider"></li>
 						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-						<li><a @click="logout"><i class="icon-switch2"></i> Logout</a></li>
+						<li><a @click="onLogout"><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -110,8 +110,8 @@
 import Cookies from "js-cookie";
 export default {
   methods: {
-    logout() {
-      this.$store.commit("auth/logout");
+    onLogout() {
+      this.$store.dispatch("logout");
       this.$router.push("/");
     }
   }

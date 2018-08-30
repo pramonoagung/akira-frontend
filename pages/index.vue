@@ -22,14 +22,14 @@
               </div>
 
               <div class="form-group has-feedback has-feedback-left">
-                <input type="text" class="form-control" required v-model="credentials.username" placeholder="Username">
+                <input type="text" class="form-control" required v-model="username" placeholder="Username">
                 <div class="form-control-feedback">
                   <i class="icon-user text-muted"></i>
                 </div>
               </div>
 
               <div class="form-group has-feedback has-feedback-left">
-                <input type="password" class="form-control" required v-model="credentials.password" placeholder="Password">
+                <input type="password" class="form-control" required v-model="password" placeholder="Password">
                 <div class="form-control-feedback">
                   <i class="icon-lock2 text-muted"></i>
                 </div>
@@ -63,38 +63,27 @@ export default {
   data() {
     return {
       isLogin: true,
-      credentials: {
-        username: "",
-        password: ""
-      }
+      username: "",
+      password: ""
     };
   },
   methods: {
-    async onLogin() {
+    onLogin() {
       if (
-        this.credentials.username !== null &&
-        this.credentials.username !== "" &&
-        this.credentials.password !== null &&
-        this.credentials.password !== ""
+        this.username !== null &&
+        this.username !== "" &&
+        this.password !== null &&
+        this.password !== ""
       ) {
-        const responses = await axios
-          .post(
-            process.env.myapi +
-              '/graphql?query=mutation+Authenticate{Authenticate(input: {username:"' +
-              this.credentials.username +
-              '",password:"' +
-              this.credentials.password +
-              '"}) {token,user {id, username, nama, organizations{nama,scopes}}}}'
-          )
-          .then(res => {
-            this.$store.commit("auth/setUser", res.data.data.Authenticate),
-              this.$store.commit(
-                "auth/setAuthenticated",
-                res.data.data.Authenticate
-              ),
-              this.$router.push("/dashboard");
+        this.$store
+          .dispatch("authenticateUser", {
+            isLogin: this.isLogin,
+            username: this.username,
+            password: this.password
           })
-          .catch(error => console.log(error));
+          .then(() => {
+            this.$router.push("/dashboard");
+          });
       }
     }
   }

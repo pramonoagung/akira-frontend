@@ -1,9 +1,6 @@
 export default function(context) {
-  //console.log(context.store.state);
-
-  if (!context.store.state.auth.auth) {
-    return context.redirect("/");
+  if (!context.store.getters.isAuthenticated) {
+    context.redirect("/");
   }
-
   console.log("Middleware Auth Running");
 }
