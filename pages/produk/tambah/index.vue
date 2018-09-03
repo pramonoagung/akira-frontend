@@ -35,7 +35,7 @@
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">Tambah
+                                                    <button type="submit" :disabled="submitted" class="btn btn-primary">Tambah
                                                     </button>
                                                 </div>
                                             </div>
@@ -57,6 +57,7 @@ export default {
   layout: "dashboard",
   data() {
     return {
+      submitted: false,
       produk: {
         nama: "",
         waktu: "",
@@ -67,6 +68,7 @@ export default {
   },
   methods: {
     onSave() {
+      this.submitted = true;
       if (this.produk.deskripsi == null && this.produk.deskripsi == "") {
         axios
           .post(
@@ -79,7 +81,7 @@ export default {
               this.produk.harga +
               "){nama}}"
           )
-          .then(this.$router.push("/produk"))
+          .then(res => this.$router.push("/produk"))
           .catch(error => console.log(error));
       } else {
         axios
@@ -100,7 +102,7 @@ export default {
       }
     },
     onCancel() {
-      window.location = "/produk";
+      this.$router.push("/produk");
     }
   }
 };

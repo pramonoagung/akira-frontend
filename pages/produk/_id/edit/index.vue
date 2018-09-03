@@ -27,7 +27,7 @@
                                                     <input type="text" v-model="produk.kode" class="form-control" placeholder="kode">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" v-model="produk.waktu" class="form-control" placeholder="Waktu">
+                                                    <input type="text" v-model="produk.waktu" class="form-control" placeholder="Waktu dalam menit">
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="text" v-model="produk.harga" class="form-control" placeholder="Harga">
@@ -39,7 +39,7 @@
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">Simpan
+                                                    <button type="submit" :disabled="submitted" class="btn btn-primary">Simpan
                                                     </button>
                                                 </div>
                                             </div>
@@ -61,6 +61,7 @@ export default {
   layout: "dashboard",
   data() {
     return {
+      submitted: false,
       produk: {
         nama: "",
         kode: "",
@@ -89,6 +90,7 @@ export default {
   },
   methods: {
     onSave() {
+      this.submitted = true;
       if (this.produk.deskripsi == "") {
         axios
           .post(

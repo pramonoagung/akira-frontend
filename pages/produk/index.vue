@@ -26,8 +26,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Waktu</th>
-                                    <th>Harga</th>
+                                    <th>Waktu (Menit)</th>
+                                    <th>Harga (Rp)</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -74,18 +74,7 @@
 import axios from "axios";
 export default {
   layout: "dashboard",
-  data() {
-    return {
-      produk: {}
-    };
-  },
   async asyncData() {
-    const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={produk{id,nama,waktu,harga}}"
-    );
-    return { produk: data.data.produk };
-  },
-  async created() {
     const { data } = await axios.get(
       process.env.myapi + "/graphql?query={produk{id,nama,waktu,harga}}"
     );
