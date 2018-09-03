@@ -36,7 +36,7 @@
                                     <td>{{index+1}}</td>
                                     <td>{{user.nama}}</td>
                                     <td>{{user.username}}</td>
-                                    <td><span v-for="(unit, index) in user.organizations" :key="index"><p>{{unit.nama}} - {{unit.scopes}}</p></span></td>
+                                    <td><span v-for="(unit, index) in user.organizations" :key="index">{{unit.nama}} - {{unit.scopes}}</span></td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -46,7 +46,7 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <nuxt-link :to="'/admin/'+''+'/edit'">
+                                                        <nuxt-link :to="'/admin/'+user.id+'/edit'">
                                                             <i class="icon-pencil"></i> Edit Admin
                                                         </nuxt-link>
                                                     </li>
@@ -80,6 +80,21 @@ export default {
         '/graphql?query={users(scope:"admin"){id,nama,username,organizations{nama,scopes}}}'
     );
     return { users: data.data.users };
+  },
+  methods: {
+    async onDelete(params) {
+      await axios
+        .post(
+          process.env.myapi +
+            '/graphql?query=mutation{Deactivate(username:"' +
+            params.username +
+            '"){nama}}'
+        )
+        .then(res => console.log(res))
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 };
 </script>
