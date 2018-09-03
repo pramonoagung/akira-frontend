@@ -109,13 +109,8 @@ export default {
             params.id +
             "){id}"
         )
-        .then(function(response) {
-          //Calling asyncData [WIP]
-          window.location = "/dashboard/aplikasi/manajemen/voucher";
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+        .then(res => this.$router.push("/voucher/" + params.id + "/edit"))
+        .catch(res => console.log(error));
     }
   }
 };
