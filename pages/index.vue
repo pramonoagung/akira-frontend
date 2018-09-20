@@ -36,7 +36,7 @@
               </div>
 
               <div class="form-group">
-                  <button type="submit" class="btn bg-info btn-block">Login
+                  <button :disabled="submitted" type="submit" class="btn bg-info btn-block">Login
                   </button>
               </div>
 
@@ -62,6 +62,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      submitted: false,
       isLogin: true,
       username: "",
       password: ""
@@ -75,6 +76,7 @@ export default {
         this.password !== null &&
         this.password !== ""
       ) {
+        this.submitted = true;
         this.$store
           .dispatch("authenticateUser", {
             isLogin: this.isLogin,

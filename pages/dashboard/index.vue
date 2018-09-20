@@ -40,7 +40,7 @@
                                 <div class="col-lg-3">
                                     <div class="panel bg-blue-400">
                                         <div class="panel-body">
-                                            <h3 class="no-margin">183</h3>
+                                            <h3 class="no-margin">{{reservasi.length}}</h3>
                                             Reservasi hari ini
                                         </div>
 
@@ -72,20 +72,27 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Tanggal Pemesanan</th>
-                                    <th>Status</th>
+                                    <th>Tanggal Reservasi</th>
+                                    <th>Kode</th>
+                                    <th>Username</th>
+                                    <th>Produk</th>
+                                    <th>Waktu (Menit)</th>
+                                    <th>Terapis</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Marth</td>
-                                    <td>17 Agustus 2019</td>
-                                    <td>
-                                        <span class="label label-success">Diterima</span>
-                                    </td>
+                                <tr v-for="(single, index) in reservasi" :key="single.id">
+                                    <td>{{index+1}}</td>
+                                    <td>{{single.header_reservasi_id.tanggal_reservasi}}</td>
+                                    <td>{{single.header_reservasi_id.kode}}</td>
+                                    <td>{{single.header_reservasi_id.tamu}}</td>
+                                    <td v-if="single.header_reservasi_id.detail_reservasi.length > 1"><a @click="getDetail(single.header_reservasi_id.id)">Detail</a></td>
+                                    <td v-else>{{single.header_reservasi_id.detail_reservasi[0].produk_id.nama}}</td>
+                                    <td v-if="single.header_reservasi_id.detail_reservasi.length > 1">-</td>
+                                    <td v-else>{{single.header_reservasi_id.detail_reservasi[0].produk_id.waktu}}</td>
+                                    <td v-if="single.header_reservasi_id.detail_reservasi.length > 1">-</td>
+                                    <td v-else>{{single.header_reservasi_id.detail_reservasi[0].karyawan_id.nama}}</td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -95,32 +102,12 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah Ditolak</a>
+                                                        <a @click="terima(single.header_reservasi_id.kode)">
+                                                            <i class="icon-checkmark"></i> Terima</a>
                                                     </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Martin Praja</td>
-                                    <td>32 Desember 2019</td>
-                                    <td>
-                                        <span class="label label-default">Ditolak</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah Diterima</a>
+                                                        <a @click="tolak(single.header_reservasi_id.kode)">
+                                                            <i class="icon-cross2" style="color:red"></i> Tolak</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -142,16 +129,44 @@ export default {
   layout: "dashboard",
   async asyncData() {
     const { data } = await axios.get(
-      process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
+      process.env.myapi +
+        '/graphql?query={statusReservasi(status:"pending"){id,header_reservasi_id{id,tanggal_reservasi,tamu,kode,detail_reservasi{produk_id{nama,waktu}karyawan_id{nip,nama}}}}}'
     );
-    return { terapis: data.data.KaryawanQuery };
+    return { reservasi: data.data.statusReservasi };
   },
-  created() {},
+  async created() {
+    await axios
+      .get(
+        process.env.myapi +
+          '/graphql?query={statusReservasi(status:"pending"){id,header_reservasi_id{id,tanggal_reservasi,tamu,kode,detail_reservasi{produk_id{nama,waktu}karyawan_id{nip,nama}}}}}'
+      )
+      .then(res => console.log(res.data.data));
+  },
   methods: {
-    async getUser() {
-      await axios.get(
-        process.env.myapi + "/graphql?query={KaryawanQuery{id,nama,rating}}"
-      );
+    async getDetail(id) {
+      this.$router.push("/reservasi/" + id + "/detail");
+    },
+    async tolak(kode) {
+      await axios
+        .post(
+          process.env.myapi +
+            '/graphql?query=mutation{TolakReservasi(ref_id:"' +
+            kode +
+            '"){status,progress}}'
+        )
+        .then(res => (window.location = "/dashboard"))
+        .catch(err => console.log(err));
+    },
+    async terima(kode) {
+      await axios
+        .post(
+          process.env.myapi +
+            '/graphql?query=mutation{TerimaReservasi(ref_id:"' +
+            kode +
+            '"){status,progress}}'
+        )
+        .then(res => (window.location = "/dashboard"))
+        .catch(err => console.log(err));
     }
   }
 };

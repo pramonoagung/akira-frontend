@@ -11,36 +11,42 @@
 
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title">Daftar Pelanggan</h5>
+                            <h5 class="panel-title">Workshift Terapis <b style="color:orange">{{nama}}</b> </h5>
+                            <div class="heading-elements">
+                                <nuxt-link to="/terapis/workshift"><button type="button" class="btn btn-default position-left"><span class=" icon-circle-left2"> Kembali</span></button></nuxt-link>
+                            </div>
                         </div>
                         
                         <table class="table datatable-basic table-hover">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nomor Transaksi</th>
-                                    <th>Referensi ID</th>
-                                    <th>Total (Rp)</th>
+                                    <th>Hari</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Berakhir</th>
+                                    <th>Status</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for=" (transaksi, index) in allTransaksi" :key="transaksi.id">
-                                    <td>{{index+1}}</td>
-                                    <td>{{transaksi.nomor}}</td>
-                                    <td>{{transaksi.id_detail[0].ref_id}}</td>
-                                    <td>{{transaksi.id_pembayaran[0].jumlah}}</td>
+                                <tr v-for=" (workshift, index) in penempatan" :key="index">
+                                    <td>{{workshift.hari}}</td>
+                                    <td>{{workshift.jam_mulai}}</td>
+                                    <td>{{workshift.jam_akhir}}</td>
+                                    <td v-if="workshift.flag==0"><span class="label label-warning">Libur</span></td>
+                                    <td v-else><span class="label label-info">Masuk</span></td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                     <i class="icon-menu9"></i>
                                                 </a>
-
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li @click="onDelete(transaksi.id)">
-                                                        <a>
-                                                            <i class="icon-eye8"></i> <b>Lihat Detail</b>
+                                                    <li @click="ubah(workshift.id)">
+                                                        <a v-if="workshift.flag==1">
+                                                            <i class="icon-transmission"></i> <b>Ubah libur</b>
+                                                        </a>
+                                                        <a v-else>
+                                                            <i class="icon-transmission"></i> <b>Ubah Masuk</b>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -50,9 +56,7 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -62,27 +66,30 @@
 import axios from "axios";
 export default {
   layout: "dashboard",
-  async asyncData() {
-    const { data } = await axios.get(
-      process.env.myapi +
-        "/graphql?query={HeaderTransaksi{id,nomor,id_detail{ref_id,produk,kuantitas,harga,diskon}id_pembayaran{jenis,jumlah,referensi}}}"
-    );
-    return { allTransaksi: data.data.HeaderTransaksi };
+  data() {
+    return {
+      nama: "",
+      penempatan: ""
+    };
   },
   async created() {
     await axios
       .get(
         process.env.myapi +
-          "/graphql?query={HeaderTransaksi{id,nomor,id_detail{ref_id,produk,kuantitas,harga,diskon}id_pembayaran{jenis,jumlah,referensi}}}"
+          "/graphql?query={KaryawanQuery(id:" +
+          this.$route.params.id +
+          "){nama,penempatan{workshift{id,hari,jam_mulai,jam_akhir,flag}}}}"
       )
       .then(res => {
-        console.log(res.data.data.HeaderTransaksi);
+        this.nama = res.data.data.KaryawanQuery[0].nama;
+        this.penempatan =
+          res.data.data.KaryawanQuery[0].penempatan[0].workshift;
       })
       .catch(err => console.log(err));
   },
   methods: {
-    onDelete(param) {
-      console.log(param);
+    ubah(id) {
+      console.log(id);
     }
   }
 };

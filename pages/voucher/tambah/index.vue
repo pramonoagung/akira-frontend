@@ -79,10 +79,10 @@ export default {
             this.voucher.jumlah +
             '", tanggal_kadaluarsa: "' +
             this.voucher.tanggal_kadaluarsa +
-            '", logo_voucher: "http://www.reevolveclothing.com/wp-content/uploads/2018/05/simple-a-picture-of-pikachu-is-gun-shooting-detective-now-and-his-game-coming-to.jpg") { id } }'
+            '", logo_voucher:"img/kupon2.png") { id } }'
         )
         .then(res => {
-          console.log(res);
+          this.$router.push("/voucher");
         })
         .catch(error => console.log(error));
     }

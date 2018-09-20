@@ -78,15 +78,17 @@ export default {
       .catch(error => console.log(error));
   },
   methods: {
-    onUpdate(param) {
+    onUpdate() {
       axios
         .post(
           process.env.myapi +
-            '/graphql?query=mutation{CreateKaryawan(nama:"' +
+            "/graphql?query=mutation{UpdateKaryawan(id:" +
+            this.$route.params.id +
+            ',nama:"' +
             this.terapis.nama +
             '",jenis_kelamin:"' +
             this.terapis.jk +
-            '"){nip,nama}}'
+            '"){nama}}'
         )
         .then(res => this.$router.push("/terapis/manajemen"))
         .catch(error => console.log(error));

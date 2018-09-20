@@ -19,7 +19,7 @@
                                     <i class="icon-plus2 position-left"></i>Tambah
                                     </button>
                                 </nuxt-link>
-	                	    </div>
+	                	</div>
                     </div>
                     <table class="table datatable-basic table-hover">
                         <thead>
