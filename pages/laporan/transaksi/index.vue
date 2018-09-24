@@ -11,17 +11,20 @@
 
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title">Daftar Pelanggan</h5>
+                            <h5 class="panel-title">Laporan Transaksi</h5>
+                            <div class="heading-elements">
+                                <button @click="cetak" type="button" class="btn btn-info btn-raised btn-sm legitRipple">
+                                    <i class="icon-printer position-left"></i>Cetak
+                                </button>
+	                	    </div>
                         </div>
-                        
-                        <table class="table datatable-basic table-hover">
+                        <table class="table datatable-basic table-hover" >
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nomor Transaksi</th>
                                     <th>Referensi ID</th>
                                     <th>Total (Rp)</th>
-                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,29 +33,18 @@
                                     <td>{{transaksi.nomor}}</td>
                                     <td>{{transaksi.id_detail[0].ref_id}}</td>
                                     <td>{{transaksi.id_pembayaran[0].jumlah}}</td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li @click="onDelete(transaksi.id)">
-                                                        <a>
-                                                            <i class="icon-eye8"></i> <b>Lihat Detail</b>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-
+                        <!-- <div class="panel-body">
+                            <div class="text-right">
+                                <button type="button" @click="onCancel" class="btn btn-danger position-left">Tolak
+                                </button>
+                                <button type="submit" :disabled="submitted" @click="terima(header_reservasi)" class="btn btn-success">Terima
+                                </button>
+                            </div>
+                        </div> -->
                     </div>
-
                 </div>
             </div>
         </div>
@@ -69,20 +61,21 @@ export default {
     );
     return { allTransaksi: data.data.HeaderTransaksi };
   },
-  async created() {
-    await axios
-      .get(
-        process.env.myapi +
-          "/graphql?query={HeaderTransaksi{id,nomor,id_detail{ref_id,produk,kuantitas,harga,diskon}id_pembayaran{jenis,jumlah,referensi}}}"
-      )
-      .then(res => {
-        console.log(res.data.data.HeaderTransaksi);
-      })
-      .catch(err => console.log(err));
+  data() {
+    return {
+      perPage: 6,
+      totalPage: 0,
+      page: 1,
+      skip: 0
+    };
   },
   methods: {
-    onDelete(param) {
-      console.log(param);
+    cetak() {
+      window.print();
+    },
+    next(page) {
+      this.$nuxt._router.replace({ path: "/laporan/transaksi?page=" + page });
+      window.location.reload(true);
     }
   }
 };

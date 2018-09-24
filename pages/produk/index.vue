@@ -27,7 +27,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Waktu (Menit)</th>
-                                    <th>Harga (Rp)</th>
+                                    <th>Harga</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -82,19 +82,22 @@ export default {
   },
   methods: {
     async onDelete(params) {
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation{deleteProduk(id:" +
-            params.id +
-            "){nama}}"
-        )
-        .then(function(response) {
-          this.$router.go(this.$router.currentRoute);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              "/graphql?query=mutation{deleteProduk(id:" +
+              params.id +
+              "){nama}}"
+          )
+          .then(function(response) {
+            this.$router.go(this.$router.currentRoute);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+      }
     }
   }
 };

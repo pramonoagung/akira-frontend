@@ -84,17 +84,20 @@ export default {
   },
   methods: {
     async onDelete(params) {
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation{DeleteKaryawan(id:" +
-            params.id +
-            "){id,uuid,nip,nama,rating}}"
-        )
-        .then(res => this.$router.push("/terapis/manajemen"))
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              "/graphql?query=mutation{DeleteKaryawan(id:" +
+              params.id +
+              "){id,uuid,nip,nama,rating}}"
+          )
+          .then(res => this.$router.push("/terapis/manajemen"))
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+      }
     }
   }
 };

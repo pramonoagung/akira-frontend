@@ -44,6 +44,7 @@
 				<li><nuxt-link :to="'/pembayaran'"><i class="icon-cash3 position-left"></i> Pembayaran</nuxt-link></li>
 				<li><nuxt-link :to="'/tracker/reservasi'"><i class="icon-pulse2 position-left"></i> Tracker</nuxt-link></li>
 				<li><nuxt-link :to="'/voucher'"><i class="icon-stack-star position-left"></i> Voucher</nuxt-link></li>
+				<li><nuxt-link :to="'/check-in'"><i class="icon-stack-star position-left"></i> Check In</nuxt-link></li>
 				<li><nuxt-link :to="'/admin'"><i class=" icon-user position-left"></i> Admin</nuxt-link></li>
 			</ul>
             <ul class="nav navbar-nav navbar-nav-material navbar-right">

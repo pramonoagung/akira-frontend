@@ -53,7 +53,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a @click="onDelete(voucher)">
+                                                    <a @click="onDelete(voucher)" style="color:red">
                                                         <i class="icon-trash"></i> Hapus
                                                     </a>
                                                 </li>
@@ -87,19 +87,24 @@ export default {
   },
   methods: {
     async onDelete(params) {
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation+a{DeleteVoucher(id:" +
-            params.id +
-            "){id kode}}"
-        )
-        .then(res => {
-          this.$router.push("/voucher");
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (confirm("Apakah anda yakin ?")) {
+        // Save it!
+        await axios
+          .post(
+            process.env.myapi +
+              "/graphql?query=mutation+a{DeleteVoucher(id:" +
+              params.id +
+              "){id kode}}"
+          )
+          .then(res => {
+            window.location = "/voucher";
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+        // Do nothing!
+      }
     },
     async onEdit(params) {
       await axios

@@ -63,8 +63,8 @@ export default {
     };
   },
   methods: {
-    onSave() {
-      axios
+    async onSave() {
+      await axios
         .post(
           process.env.myapi +
             '/graphql?query=mutation{CreateKaryawan(nama:"' +

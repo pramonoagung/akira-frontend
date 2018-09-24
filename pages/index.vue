@@ -14,7 +14,7 @@
             <div class="panel panel-body login-form">
               <div class="text-center">
                 <div class="icon-object border-slate-300 text-slate-300">
-                  <i class="icon-reading"></i>
+                  <img src="/images/akira-logo.png" style="width:70px; height:70px" />
                 </div>
                 <h5 class="content-group">Login to Akira
                   <small class="display-block">Masuk ke Akira Dashboard</small>
@@ -40,9 +40,6 @@
                   </button>
               </div>
 
-              <div class="text-center">
-                <a href="login_password_recover.html">Forgot password?</a>
-              </div>
             </div>
           </form>
           <!-- /simple login form -->

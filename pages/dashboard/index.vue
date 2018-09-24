@@ -134,39 +134,37 @@ export default {
     );
     return { reservasi: data.data.statusReservasi };
   },
-  async created() {
-    await axios
-      .get(
-        process.env.myapi +
-          '/graphql?query={statusReservasi(status:"pending"){id,header_reservasi_id{id,tanggal_reservasi,tamu,kode,detail_reservasi{produk_id{nama,waktu}karyawan_id{nip,nama}}}}}'
-      )
-      .then(res => console.log(res.data.data));
-  },
   methods: {
     async getDetail(id) {
       this.$router.push("/reservasi/" + id + "/detail");
     },
     async tolak(kode) {
-      await axios
-        .post(
-          process.env.myapi +
-            '/graphql?query=mutation{TolakReservasi(ref_id:"' +
-            kode +
-            '"){status,progress}}'
-        )
-        .then(res => (window.location = "/dashboard"))
-        .catch(err => console.log(err));
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{TolakReservasi(ref_id:"' +
+              kode +
+              '"){status,progress}}'
+          )
+          .then(res => (window.location = "/dashboard"))
+          .catch(err => console.log(err));
+      } else {
+      }
     },
     async terima(kode) {
-      await axios
-        .post(
-          process.env.myapi +
-            '/graphql?query=mutation{TerimaReservasi(ref_id:"' +
-            kode +
-            '"){status,progress}}'
-        )
-        .then(res => (window.location = "/dashboard"))
-        .catch(err => console.log(err));
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{TerimaReservasi(ref_id:"' +
+              kode +
+              '"){status,progress}}'
+          )
+          .then(res => (window.location = "/dashboard"))
+          .catch(err => console.log(err));
+      } else {
+      }
     }
   }
 };

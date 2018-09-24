@@ -41,11 +41,13 @@
                                                     <i class="icon-menu9"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li @click="ubah(workshift.id)">
-                                                        <a v-if="workshift.flag==1">
+                                                    <li @click="ubahLibur(workshift.id)" v-if="workshift.flag==1">
+                                                        <a>
                                                             <i class="icon-transmission"></i> <b>Ubah libur</b>
                                                         </a>
-                                                        <a v-else>
+                                                    </li>
+                                                    <li @click="ubahMasuk(workshift.id)" v-else-if="workshift.flag==0">
+                                                        <a>
                                                             <i class="icon-transmission"></i> <b>Ubah Masuk</b>
                                                         </a>
                                                     </li>
@@ -88,8 +90,33 @@ export default {
       .catch(err => console.log(err));
   },
   methods: {
-    ubah(id) {
-      console.log(id);
+    ubahLibur(id) {
+      axios
+        .post(
+          process.env.myapi +
+            "/graphql?query=mutation{DisableWorkshift(id:" +
+            id +
+            "){id}}"
+        )
+        .then(
+          res =>
+            (window.location =
+              "/terapis/workshift/" + this.$route.params.id + "/detail")
+        );
+    },
+    ubahMasuk(id) {
+      axios
+        .post(
+          process.env.myapi +
+            "/graphql?query=mutation{EnableWorkshift(id:" +
+            id +
+            "){id}}"
+        )
+        .then(
+          res =>
+            (window.location =
+              "/terapis/workshift/" + this.$route.params.id + "/detail")
+        );
     }
   }
 };

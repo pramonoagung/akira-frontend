@@ -47,7 +47,7 @@ export default {
   async asyncData({ params }) {
     let { data } = await axios.get(
       process.env.myapi +
-        "/graphql?query={KaryawanQuery{id,uuid,nip,nama,jenis_kelamin,rating,penempatan{posisi,tanggal_mulai,tanggal_berakhir,workshift{hari,jam_mulai,jam_akhir}ketersediaan{hari,jam_mulai,jam_akhir}}}}"
+        "/graphql?query={KaryawanQuery{id,nama,penempatan{posisi}}}"
     );
     return { workshifts: data.data.KaryawanQuery };
   },

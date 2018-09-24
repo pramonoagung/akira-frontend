@@ -16,22 +16,11 @@
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="panel panel-flat">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title" style="text-align:center"><b>Pembayaran</b></h3>
+                                                <h3 class="panel-title" style="text-align:center"><b>Check In</b></h3>
                                             </div>
-                                            
                                             <div class="panel-body">
                                                 <div class="form-group">
-                                                    <label>Cari Berdasarkan</label>
-                                                    <br>
-                                                    <select v-model="jenis" @change="bersihkan">
-                                                        <option disabled value="">Pilih</option>
-                                                        <option>Kode Reservasi</option>
-                                                        <option>Username</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input v-if="jenis=='Kode Reservasi'" v-model="kode" type="text" required class="form-control" placeholder="Kode Reservasi">
-                                                    <input v-if="jenis=='Username'" v-model="username" type="text" required class="form-control" placeholder="Username">
+                                                    <input v-model="kode" type="text" required class="form-control" placeholder="Kode Reservasi">
                                                 </div>
                                                 <div class="text-center">
                                                     <button type="submit" class="btn btn-primary">Cari
@@ -79,7 +68,7 @@
                                                         <td v-if="item.detail_reservasi.length > 1">-</td>
                                                         <td v-else>{{item.detail_reservasi[0].karyawan_id.nama}}</td>
                                                         <td class="text-center">
-                                                            <a class="label label-info" @click="bayar(item.kode)">Bayar Now!</a>
+                                                            <a class="label label-info" @click="checkin(item.kode)">CHECK IN!</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -91,7 +80,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -112,37 +100,32 @@ export default {
   },
   methods: {
     async cari() {
-      if (this.kode != "" && this.jenis == "Kode Reservasi") {
-        await axios
-          .post(
-            process.env.myapi +
-              '/graphql?query={headerReservasi(kode:"' +
-              this.kode +
-              '",status: "konfirm", progress: "checkin"){tamu, kode, detail_reservasi{header_reservasi_id,produk_id{nama}, karyawan_id{ nama } }}}'
-          )
-          .then(
-            res => (this.hasil = res.data.data.headerReservasi),
-            (this.status = "kode")
-          )
-          .catch(error => console.log(error));
-      } else if (this.username != "" && this.jenis == "Username") {
-        await axios
-          .post(
-            process.env.myapi +
-              '/graphql?query={headerReservasi(username:"' +
-              this.username +
-              '",status: "konfirm", progress: "checkin"){tamu, kode, detail_reservasi{produk_id{nama}, karyawan_id{ nama } }}}'
-          )
-          .then(
-            res => (this.hasil = res.data.data.headerReservasi),
-            (this.status = "username")
-          )
-          .catch(error => console.log(error));
-      }
+      await axios
+        .post(
+          process.env.myapi +
+            '/graphql?query={headerReservasi(kode:"' +
+            this.kode +
+            '",status: "konfirm", progress: "konfirm"){tamu, kode, detail_reservasi{header_reservasi_id,produk_id{nama}, karyawan_id{ nama } }}}'
+        )
+        .then(res => {
+          (this.hasil = res.data.data.headerReservasi),
+            console.log(res.data.data.headerReservasi),
+            (this.status = "kode");
+        })
+        .catch(error => console.log(error));
     },
-    async bayar(kode) {
-      if (this.status == "kode") {
-        this.$router.push("/pembayaran/" + kode + "/checkout");
+    async checkin(kode) {
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{CheckinReservasi(ref_id:"' +
+              kode +
+              '"){id, status, progress}}'
+          )
+          .then(res => alert("Sukses!"), this.bersihkan())
+          .catch(error => console.log(error));
+      } else {
       }
     },
     bersihkan() {

@@ -13,7 +13,13 @@
                         <div class="panel-heading">
                             <h5 class="panel-title">Detail Reservasi</h5>
                             <div class="heading-elements">
-                                <button type="button" @click="onCancel" class="btn btn-default position-left"><span class=" icon-circle-left2"> Kembali</span></button>
+                                <button v-if="status == 'pending' && progress == 'diterima'" type="button" @click="onCancel" class="btn btn-default position-left"><span class=" icon-circle-left2"> Kembali</span></button>
+                                <nuxt-link v-if="status == 'konfirm' && progress == 'checkin'" to="/pembayaran">
+                                   <button type="button" class="btn btn-default position-left"><span class=" icon-circle-left2"> Kembali</span></button>
+                                </nuxt-link>
+                                <nuxt-link v-else to="/check-in">
+                                   <button type="button" class="btn btn-default position-left"><span class=" icon-circle-left2"> Kembali</span></button>
+                                </nuxt-link>
                             </div>
                         </div>
                         <table class="table datatable-basic table-hover">
@@ -34,9 +40,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="panel-body">
+                        <div class="panel-body" v-if="status == 'pending' && progress == 'diterima'">
                             <div class="text-right">
-                                <button type="button" @click="onCancel" class="btn btn-danger position-left">Tolak
+                                <button type="button" @click="tolak(header_reservasi)" class="btn btn-danger position-left">Tolak
                                 </button>
                                 <button type="submit" :disabled="submitted" @click="terima(header_reservasi)" class="btn btn-success">Terima
                                 </button>
@@ -57,19 +63,25 @@ export default {
     return {
       submitted: false,
       reservasi: "",
-      header_reservasi: ""
+      header_reservasi: "",
+      status: "",
+      progress: ""
     };
   },
   async created() {
     await axios
       .get(
         process.env.myapi +
-          "/graphql?query={ detailReservasi(header_reservasi_id:" +
+          "/graphql?query={detailReservasi(header_reservasi_id:" +
           this.$route.params.id +
-          "){header_reservasi_id,karyawan_id{nama}produk_id{nama,waktu}}}"
+          "){header_reservasi_id,karyawan_id{nama}produk_id{nama,waktu}},statusReservasi(header_reservasi_id:" +
+          this.$route.params.id +
+          "){status,progress}}"
       )
       .then(res => {
         (this.reservasi = res.data.data.detailReservasi),
+          (this.status = res.data.data.statusReservasi[0].status),
+          (this.progress = res.data.data.statusReservasi[0].progress),
           (this.header_reservasi =
             res.data.data.detailReservasi[0].header_reservasi_id);
       })
@@ -77,26 +89,32 @@ export default {
   },
   methods: {
     async tolak(kode) {
-      await axios
-        .post(
-          process.env.myapi +
-            '/graphql?query=mutation{TolakReservasi(ref_id:"' +
-            kode +
-            '"){status,progress}}'
-        )
-        .then(res => this.$router.push("/dashboard"))
-        .catch(err => console.log(err));
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{TolakReservasi(ref_id:"' +
+              kode +
+              '"){status,progress}}'
+          )
+          .then(res => this.$router.push("/dashboard"))
+          .catch(err => console.log(err));
+      } else {
+      }
     },
     async terima(header_reservasi_id) {
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation{TerimaReservasi(header_reservasi_id:" +
-            header_reservasi_id +
-            "){status,progress}}"
-        )
-        .then(res => this.$router.push("/dashboard"))
-        .catch(err => console.log(err));
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              "/graphql?query=mutation{TerimaReservasi(header_reservasi_id:" +
+              header_reservasi_id +
+              "){status,progress}}"
+          )
+          .then(res => this.$router.push("/dashboard"))
+          .catch(err => console.log(err));
+      } else {
+      }
     },
     onCancel() {
       this.$router.push("/dashboard");
