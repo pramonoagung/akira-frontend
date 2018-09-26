@@ -10,11 +10,11 @@
         <div class="content-wrapper">
 
           <!-- Simple login form -->
-          <form action="index.html">
+          <form @submit.prevent="onLogin">
             <div class="panel panel-body login-form">
               <div class="text-center">
                 <div class="icon-object border-slate-300 text-slate-300">
-                  <i class="icon-reading"></i>
+                  <img src="/images/akira-logo.png" style="width:70px; height:70px" />
                 </div>
                 <h5 class="content-group">Login to Akira
                   <small class="display-block">Masuk ke Akira Dashboard</small>
@@ -22,29 +22,24 @@
               </div>
 
               <div class="form-group has-feedback has-feedback-left">
-                <input type="text" class="form-control" placeholder="Username">
+                <input type="text" class="form-control" required v-model="username" placeholder="Username">
                 <div class="form-control-feedback">
                   <i class="icon-user text-muted"></i>
                 </div>
               </div>
 
               <div class="form-group has-feedback has-feedback-left">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" required v-model="password" placeholder="Password">
                 <div class="form-control-feedback">
                   <i class="icon-lock2 text-muted"></i>
                 </div>
               </div>
 
               <div class="form-group">
-                <nuxt-link :to="'/dashboard'">
                   <button type="submit" class="btn bg-info btn-block">Login
                   </button>
-                </nuxt-link>
               </div>
 
-              <div class="text-center">
-                <a href="login_password_recover.html">Forgot password?</a>
-              </div>
             </div>
           </form>
           <!-- /simple login form -->
@@ -59,3 +54,35 @@
     <!-- /page container -->
   </div>
 </template>
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      isLogin: true,
+      username: "",
+      password: ""
+    };
+  },
+  methods: {
+    onLogin() {
+      if (
+        this.username !== null &&
+        this.username !== "" &&
+        this.password !== null &&
+        this.password !== ""
+      ) {
+        this.$store
+          .dispatch("authenticateUser", {
+            isLogin: this.isLogin,
+            username: this.username,
+            password: this.password
+          })
+          .then(() => {
+            this.$router.push("/dashboard");
+          });
+      }
+    }
+  }
+};
+</script>

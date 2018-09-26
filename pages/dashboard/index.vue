@@ -8,140 +8,6 @@
 
                 <!-- Main content -->
                 <div class="content-wrapper">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            
-                            <div class="row">
-                                <div class="col-lg-3">
-
-                                    <div class="panel bg-teal-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">450</h3>
-                                            Pelanggan
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-lg-3">
-
-                                    <div class="panel bg-pink-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">49</h3>
-                                            Transaksi sukses
-                                        </div>
-
-                                        <div id="server-load"></div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="panel bg-blue-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">183</h3>
-                                            Reservasi hari ini
-                                        </div>
-
-                                        <div id="today-revenue"></div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-
-                                    <div class="panel bg-blue-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">12</h3>
-                                            Terapis Kosong
-                                        </div>
-
-                                        <div id="today-revenue"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h5 class="panel-title">Daftar Terapist</h5>
-                        </div>
-                        <table class="table datatable-basic table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Jam (WIB)</th>
-                                    <th>Ruangan</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Marth</td>
-                                    <td>13.00 - 14.20</td>
-                                    <td>-</td>
-                                    <td>
-                                        <span class="label label-success">Kosong</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah kosong</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-spinner10"></i> Ubah Update</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Yohan</td>
-                                    <td>09.00 - 11.23</td>
-                                    <td>Melati</td>
-                                    <td>
-                                        <span class="label label-danger">Tersisi</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah kosong</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="icon-spinner10"></i> Ubah Update</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h5 class="panel-title">Daftar Reservasi</h5>
@@ -150,20 +16,27 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Tanggal Pemesanan</th>
-                                    <th>Status</th>
+                                    <th>Tanggal Reservasi</th>
+                                    <th>Kode</th>
+                                    <th>Username</th>
+                                    <th>Produk</th>
+                                    <th>Waktu (Menit)</th>
+                                    <th>Terapis</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Marth</td>
-                                    <td>17 Agustus 2019</td>
-                                    <td>
-                                        <span class="label label-success">Diterima</span>
-                                    </td>
+                                <tr v-for="(single, index) in reservasi" :key="single.id">
+                                    <td>{{index+1}}</td>
+                                    <td>{{single.header_reservasi_id.tanggal_reservasi}}</td>
+                                    <td>{{single.header_reservasi_id.kode}}</td>
+                                    <td>{{single.header_reservasi_id.tamu}}</td>
+                                    <td v-if="single.header_reservasi_id.detail_reservasi.length > 1"><a @click="getDetail(single.header_reservasi_id.id)">Detail</a></td>
+                                    <td v-else>{{single.header_reservasi_id.detail_reservasi[0].produk_id.nama}}</td>
+                                    <td v-if="single.header_reservasi_id.detail_reservasi.length > 1">-</td>
+                                    <td v-else>{{single.header_reservasi_id.detail_reservasi[0].produk_id.waktu}}</td>
+                                    <td v-if="single.header_reservasi_id.detail_reservasi.length > 1">-</td>
+                                    <td v-else>{{single.header_reservasi_id.detail_reservasi[0].karyawan_id.nama}}</td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -173,32 +46,12 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah Ditolak</a>
+                                                        <a @click="terima(single.header_reservasi_id.kode)">
+                                                            <i class="icon-checkmark"></i> Terima</a>
                                                     </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Martin Praja</td>
-                                    <td>32 Desember 2019</td>
-                                    <td>
-                                        <span class="label label-default">Ditolak</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="icon-transmission"></i> Ubah Diterima</a>
+                                                        <a @click="tolak(single.header_reservasi_id.kode)">
+                                                            <i class="icon-cross2" style="color:red"></i> Tolak</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -215,7 +68,48 @@
     </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-  layout: "dashboard"
+  layout: "dashboard",
+  async asyncData() {
+    const { data } = await axios.get(
+      process.env.myapi +
+        '/graphql?query={statusReservasi(status:"pending"){id,header_reservasi_id{id,tanggal_reservasi,tamu,kode,detail_reservasi{produk_id{nama,waktu}karyawan_id{nip,nama}}}}}'
+    );
+    return { reservasi: data.data.statusReservasi };
+  },
+  methods: {
+    async getDetail(id) {
+      this.$router.push("/reservasi/" + id + "/detail");
+    },
+    async tolak(kode) {
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{TolakReservasi(ref_id:"' +
+              kode +
+              '"){status,progress}}'
+          )
+          .then(res => (window.location = "/dashboard"))
+          .catch(err => console.log(err));
+      } else {
+      }
+    },
+    async terima(kode) {
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{TerimaReservasi(ref_id:"' +
+              kode +
+              '"){status,progress}}'
+          )
+          .then(res => (window.location = "/dashboard"))
+          .catch(err => console.log(err));
+      } else {
+      }
+    }
+  }
 };
 </script>
