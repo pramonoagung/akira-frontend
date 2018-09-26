@@ -8,62 +8,6 @@
 
                 <!-- Main content -->
                 <div class="content-wrapper">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            <div class="row">
-                                <div class="col-lg-3">
-
-                                    <div class="panel bg-teal-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">450</h3>
-                                            Pelanggan
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-lg-3">
-
-                                    <div class="panel bg-pink-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">49</h3>
-                                            Transaksi sukses
-                                        </div>
-
-                                        <div id="server-load"></div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="panel bg-blue-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">{{reservasi.length}}</h3>
-                                            Reservasi hari ini
-                                        </div>
-
-                                        <div id="today-revenue"></div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-
-                                    <div class="panel bg-blue-400">
-                                        <div class="panel-body">
-                                            <h3 class="no-margin">12</h3>
-                                            Terapis Kosong
-                                        </div>
-
-                                        <div id="today-revenue"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h5 class="panel-title">Daftar Reservasi</h5>

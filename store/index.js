@@ -37,7 +37,7 @@ const createStore = () => {
             Cookie.set("jwt", res.data.data.Authenticate.token);
             Cookie.set("expirationDate", new Date().getTime() + 3600);
           })
-          .catch(e => console.log(e));
+          .catch(e => alert("Username atau Password Salah!"));
       },
       initAuth(vuexContext, req) {
         let token;

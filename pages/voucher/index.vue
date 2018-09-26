@@ -28,6 +28,8 @@
                                 <th>Kode</th>
                                 <th>Jenis</th>
                                 <th>Jumlah</th>
+                                <th>Status</th>
+                                <th>Pemilik (Username)</th>
                                 <th>Tanggal Kadaluarsa</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -37,7 +39,10 @@
                                 <td>{{index+1}}</td>
                                 <td>{{voucher.kode}}</td>
                                 <td>{{voucher.jenis}}</td>
-                                <td>{{voucher.jumlah}}</td>
+                                <td>Rp {{voucher.jumlah}}</td>
+                                <td v-if="voucher.status==1"><span class="label label-info">Tersedia</span></td>
+                                <td v-else><span class="label label-default">Habis</span></td>
+                                <td>{{voucher.owner_id.username}}</td>
                                 <td>{{voucher.tanggal_kadaluarsa}}</td>
                                 <td class="text-center">
                                     <ul class="icons-list">
@@ -79,7 +84,7 @@ export default {
     const { data } = await axios
       .get(
         process.env.myapi +
-          "/graphql?query={Voucher{id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username,nama}}}"
+          "/graphql?query={Voucher{id,kode,jenis,status,jumlah,tanggal_kadaluarsa,owner_id{username,nama}}}"
       )
       .then()
       .catch();

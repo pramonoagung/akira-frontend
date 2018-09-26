@@ -27,6 +27,10 @@
                                                 <div class="form-group">
                                                     <input type="number" class="form-control" v-model="voucher.jumlah" required placeholder="Jumlah">
                                                 </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" v-model="voucher.pemilik" required placeholder="Pemilik">
+                                                </div>
 
                                                 <div class="form-group">
                                                     <input type="date" class="form-control" v-model="voucher.tanggal_kadaluarsa" required placeholder="Tanggal Kadaluarsa">
@@ -59,9 +63,9 @@ export default {
     return {
       voucher: {
         kode: "",
-        jenis: "",
+        pemilik: "",
         tanggal_kadaluarsa: "",
-        syarat: ""
+        jumlah: ""
       }
     };
   },
@@ -73,8 +77,10 @@ export default {
       axios
         .post(
           process.env.myapi +
-            '/graphql?query=mutation+a{ CreateVoucher(kode: "' +
+            '/graphql?query=mutation+a{CreateVoucher(kode: "' +
             this.voucher.kode +
+            '", pemilik: "' +
+            this.voucher.pemilik +
             '", jumlah: "' +
             this.voucher.jumlah +
             '", tanggal_kadaluarsa: "' +

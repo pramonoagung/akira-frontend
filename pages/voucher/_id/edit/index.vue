@@ -21,21 +21,31 @@
                                                 </h3>
                                             </div>
 
-                                            <div class="panel-body">
+                                          <div class="panel-body">
                                                 <div class="form-group">
-                                                    <input type="text" required v-model="kode" class="form-control" placeholder="Kode">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="number" required v-model="jumlah" class="form-control" placeholder="Jumlah">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="date" required v-model="tanggal_kadaluarsa" class="form-control" placeholder="Tanggal Kadaluarsa">
+                                                    <label for=""><b>Kode</b></label>
+                                                    <input type="text" class="form-control" v-model="voucher.kode" required placeholder="Kode">
                                                 </div>
 
-                                                 <div class="text-right">
+                                                <div class="form-group">
+                                                    <label for=""><b>Jumlah (Rp)</b></label>
+                                                    <input type="number" class="form-control" v-model="voucher.jumlah" required placeholder="Jumlah">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for=""><b>Username Pemilik</b></label>
+                                                    <input type="text" class="form-control" v-model="voucher.pemilik" required placeholder="Pemilik">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for=""><b>Tanggal Kadaluarsa</b></label>
+                                                    <input type="date" class="form-control" v-model="voucher.tanggal_kadaluarsa" required placeholder="Tanggal Kadaluarsa">
+                                                </div>
+
+                                                <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
                                                     </button>
-                                                    <button type="submit" :disabled="submitted" class="btn btn-primary">Simpan
+                                                    <button type="submit" class="btn btn-primary">Simpan
                                                     </button>
                                                 </div>
                                             </div>
@@ -57,10 +67,12 @@ export default {
   layout: "dashboard",
   data() {
     return {
-      submitted: false,
-      kode: "",
-      jumlah: "",
-      tanggal_kadaluarsa: ""
+      voucher: {
+        kode: "",
+        pemilik: "",
+        tanggal_kadaluarsa: "",
+        jumlah: ""
+      }
     };
   },
   async created() {
@@ -69,31 +81,42 @@ export default {
         process.env.myapi +
           "/graphql?query={Voucher(id:" +
           this.$route.params.id +
-          "){id,kode,jumlah,tanggal_kadaluarsa}}"
+          "){kode,jenis,status,jumlah,tanggal_kadaluarsa,owner_id{username,nama}}}"
       )
       .then(res => {
-        this.kode = res.data.data.Voucher[0].kode;
-        this.jumlah = res.data.data.Voucher[0].jumlah;
-        this.tanggal_kadaluarsa = res.data.data.Voucher[0].tanggal_kadaluarsa;
+        this.voucher.kode = res.data.data.Voucher[0].kode;
+        this.voucher.jumlah = res.data.data.Voucher[0].jumlah;
+        this.voucher.pemilik = res.data.data.Voucher[0].owner_id.username;
+        this.voucher.tanggal_kadaluarsa =
+          res.data.data.Voucher[0].tanggal_kadaluarsa;
       })
       .catch(err => console.log(err));
   },
   methods: {
-    async onSave(id) {
-      this.submitted = true;
-      await axios
-        .post(
-          process.env.myapi +
-            "/graphql?query=mutation{UpdateVoucher(id:" +
-            this.$route.params.id +
-            ',kode:"' +
-            this.kode +
-            '", jumlah:' +
-            this.jumlah +
-            "){id}}"
-        )
-        .then(res => this.$router.push("/voucher"))
-        .catch(err => console.log(err));
+    async onSave() {
+      if (confirm("Apakah anda yakin ?")) {
+        this.submitted = true;
+        await axios
+          .post(
+            process.env.myapi +
+              "/graphql?query=mutation{UpdateVoucher(id:" +
+              this.$route.params.id +
+              ',kode:"' +
+              this.voucher.kode +
+              '", jumlah:' +
+              this.voucher.jumlah +
+              ', username:"' +
+              this.voucher.pemilik +
+              '", tanggal_kadaluarsa:"' +
+              this.voucher.tanggal_kadaluarsa +
+              '"){id}}'
+          )
+          .then(res => {
+            alert("Sukses!"), this.$router.push("/voucher");
+          })
+          .catch(err => alert("Gagal!"));
+      } else {
+      }
     },
     onCancel() {
       this.$router.push("/voucher");

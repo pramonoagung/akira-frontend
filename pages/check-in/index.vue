@@ -108,9 +108,7 @@ export default {
             '",status: "konfirm", progress: "konfirm"){tamu, kode, detail_reservasi{header_reservasi_id,produk_id{nama}, karyawan_id{ nama } }}}'
         )
         .then(res => {
-          (this.hasil = res.data.data.headerReservasi),
-            console.log(res.data.data.headerReservasi),
-            (this.status = "kode");
+          (this.hasil = res.data.data.headerReservasi), (this.status = "kode");
         })
         .catch(error => console.log(error));
     },
