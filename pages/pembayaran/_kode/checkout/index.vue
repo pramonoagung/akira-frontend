@@ -20,27 +20,31 @@
 
                                             <div class="panel-body">
                                                 <div class="form-group">
-                                                    <label>Username</label>
+                                                    <label><b>Username</b> </label>
                                                     <input type="text" v-model="username" readonly required class="form-control" placeholder="Username">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Kode</label>
+                                                    <label><b>Kode</b> </label>
                                                     <input type="text" v-model="kode" readonly required class="form-control" placeholder="Kode">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Total Harga</label>
+                                                    <label><b>Total Harga (Rp)</b> </label>
                                                     <input type="text" v-model="total" readonly required class="form-control" placeholder="Kode">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Diskon</label>
+                                                    <label><b>Diskon</b> </label>
                                                     <input type="text" v-model="kodeDiskon" required class="form-control" placeholder="Kode Diskon">
                                                     <br>
-                                                    <button type="button" @click="cekKode" class="btn btn-info btn-sm position-left">Cek Kode
+                                                    <button type="button" :disabled="submitted" @click="cekKode" class="btn btn-info btn-sm position-left">Cek Kode
                                                     </button>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Potongan</label>
+                                                    <label><b>Potongan (Rp)</b></label>
                                                     <input type="text" v-model="potongan" readonly required class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <h5><b>Total Tagihan Anda</b></h5>
+                                                    <h6><b style="color:green">Rp {{tagihan}}</b></h6> 
                                                 </div>
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
@@ -71,7 +75,8 @@ export default {
       username: "",
       kode: "",
       kodeDiskon: "",
-      potongan: ""
+      potongan: "",
+      tagihan: ""
     };
   },
   async created() {
@@ -85,35 +90,70 @@ export default {
       .then(res => {
         (this.username = res.data.data.headerReservasi[0].tamu),
           (this.kode = res.data.data.headerReservasi[0].kode),
-          (this.detail = res.data.data.headerReservasi[0].detail_reservasi);
+          (this.detail = res.data.data.headerReservasi[0].detail_reservasi),
+          (this.tagihan = this.total);
       })
       .catch(err => console.log(err));
   },
   methods: {
     async bayar() {
+      if (confirm("Apakah Anda Yakin !")) {
+        if (this.potongan == "" || this.potongan == 0) {
+          await axios
+            .post(
+              process.env.myapi +
+                '/graphql?query=mutation{CreateHeader(ref_id:"' +
+                this.kode +
+                '", jenis: "Tunai", jumlah: "' +
+                this.total +
+                '"){id,nomor,id_detail{id,ref_id}}}'
+            )
+            .then(res => {
+              alert("Pembayaran Sukses!");
+              window.location = "/pembayaran";
+            })
+            .catch(err => console.log(err));
+        } else {
+          await axios
+            .post(
+              process.env.myapi +
+                '/graphql?query=mutation{CreateHeader(ref_id:"' +
+                this.kode +
+                '", jenis: "Tunai", jumlah: "' +
+                (this.total - this.potongan) +
+                '", referensi: "' +
+                this.kodeDiskon +
+                '",diskon:"' +
+                this.nilaiDiskon +
+                '"){id,nomor,id_detail{id,ref_id}}}'
+            )
+            .then(res => {
+              alert("Pembayaran Sukses!");
+              window.location = "/pembayaran";
+            })
+            .catch(err => console.log(err));
+        }
+      } else {
+      }
+    },
+    async cekKode() {
       await axios
         .post(
           process.env.myapi +
-            '/graphql?query=mutation{CreateHeader(ref_id:"' +
-            this.kode +
-            '", jenis: "Tunai", jumlah: "' +
-            this.total +
-            '", referensi: "' +
+            '/graphql?query={CheckVoucherQuery(kode:"' +
             this.kodeDiskon +
-            '",diskon:"' +
-            this.nilaiDiskon +
-            '"){id,nomor,id_detail{id,ref_id}}}'
+            '"){kode,jumlah}}'
         )
         .then(res => {
-          alert("Pembayaran Sukses!");
-          window.location = "/pembayaran";
+          if (res.data.data.CheckVoucherQuery.jumlah != 0) {
+            (this.potongan = res.data.data.CheckVoucherQuery.jumlah),
+              (this.tagihan = this.total - this.potongan),
+              (this.submitted = true);
+          } else {
+            alert("Voucher tidak tersedia atau hangus");
+          }
         })
         .catch(err => console.log(err));
-    },
-    async cekKode() {
-        await axios
-        .post(
-          process.env.myapi + '')
     },
     onCancel() {
       this.$router.push("/pembayaran");
