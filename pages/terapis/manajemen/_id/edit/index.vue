@@ -35,7 +35,7 @@
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">Tambah
+                                                    <button type="submit" class="btn btn-primary">Simpan
                                                     </button>
                                                 </div>
                                             </div>

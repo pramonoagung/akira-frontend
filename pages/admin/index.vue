@@ -83,17 +83,20 @@ export default {
   },
   methods: {
     async onDelete(params) {
-      await axios
-        .post(
-          process.env.myapi +
-            '/graphql?query=mutation{Deactivate(username:"' +
-            params.username +
-            '"){nama}}'
-        )
-        .then(res => console.log(res))
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (confirm("Apakah anda yakin ?")) {
+        await axios
+          .post(
+            process.env.myapi +
+              '/graphql?query=mutation{Deactivate(username:"' +
+              params.username +
+              '"){nama}}'
+          )
+          .then(res => console.log(res))
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+      }
     }
   }
 };
