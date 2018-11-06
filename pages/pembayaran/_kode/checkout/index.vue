@@ -33,7 +33,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Diskon</b> </label>
-                                                    <input type="text" v-model="kodeDiskon" required class="form-control" placeholder="Kode Diskon">
+                                                    <input type="text" v-model="kodeDiskon" required class="form-control" placeholder="Kode Voucher">
                                                     <br>
                                                     <button type="button" :disabled="submitted" @click="cekKode" class="btn btn-info btn-sm position-left">Cek Kode
                                                     </button>

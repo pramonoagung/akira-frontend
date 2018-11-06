@@ -42,7 +42,8 @@
                                 <td>Rp {{voucher.jumlah}}</td>
                                 <td v-if="voucher.status==1"><span class="label label-info">Tersedia</span></td>
                                 <td v-else><span class="label label-default">Habis</span></td>
-                                <td>{{voucher.owner_id.username}}</td>
+                                <td v-if="voucher.owner_id">{{voucher.owner_id.username}}</td>
+                                <td v-else>-</td>
                                 <td>{{voucher.tanggal_kadaluarsa}}</td>
                                 <td class="text-center">
                                     <ul class="icons-list">

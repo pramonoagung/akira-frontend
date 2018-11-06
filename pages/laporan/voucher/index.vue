@@ -31,7 +31,8 @@
                                 <td>{{voucher.kode}}</td>
                                 <td>{{voucher.jenis}}</td>
                                 <td>{{voucher.jumlah}}</td>
-                                <td>{{voucher.owner_id.nama}}</td>
+                                <td v-if="voucher.owner_id">{{voucher.owner_id.nama}}</td>
+                                <td v-else>-</td>
                                 <td>{{voucher.tanggal_kadaluarsa}}</td>
                             </tr>
                         </tbody>

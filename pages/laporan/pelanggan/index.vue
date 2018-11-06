@@ -38,7 +38,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li>
                                                         <nuxt-link :to="'/laporan/pelanggan/'+user.id+'/edit'">
-                                                            <i class="icon-pencil"></i> Edit User
+                                                            <i class="icon-pencil"></i> Edit
                                                         </nuxt-link>
                                                     </li>
                                                     <li @click="onDelete(user.username)">
