@@ -26,7 +26,7 @@
                                                     <select v-model="jenis" @change="bersihkan">
                                                         <option disabled value="">Pilih</option>
                                                         <option>Kode Reservasi</option>
-                                                        <option>Username</option>
+                                                        <option disabled>Username</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -105,7 +105,7 @@ export default {
     return {
       kode: "",
       username: "",
-      jenis: "",
+      jenis: "Kode Reservasi",
       hasil: "",
       status: ""
     };

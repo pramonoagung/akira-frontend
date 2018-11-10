@@ -33,7 +33,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Diskon</b> </label>
-                                                    <input type="text" v-model="kodeDiskon" required class="form-control" placeholder="Kode Voucher">
+                                                    <input type="text" v-model="kodeDiskon" class="form-control" placeholder="Kode Voucher">
                                                     <br>
                                                     <button type="button" :disabled="submitted" @click="cekKode" class="btn btn-info btn-sm position-left">Cek Kode
                                                     </button>
@@ -45,6 +45,10 @@
                                                 <div class="form-group">
                                                     <h5><b>Total Tagihan Anda</b></h5>
                                                     <h6><b style="color:green">Rp {{tagihan}}</b></h6> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><b>Bayar (Rp)</b></label>
+                                                    <input type="number" v-model="pay" required class="form-control">
                                                 </div>
                                                 <div class="text-right">
                                                     <button type="button" @click="onCancel" class="btn btn-danger position-left">Batal
@@ -76,7 +80,9 @@ export default {
       kode: "",
       kodeDiskon: "",
       potongan: "",
-      tagihan: ""
+      tagihan: "",
+      headerReservasiId: "",
+      pay: ""
     };
   },
   async created() {
@@ -91,7 +97,9 @@ export default {
         (this.username = res.data.data.headerReservasi[0].tamu),
           (this.kode = res.data.data.headerReservasi[0].kode),
           (this.detail = res.data.data.headerReservasi[0].detail_reservasi),
-          (this.tagihan = this.total);
+          (this.tagihan = this.total),
+          (this.headerReservasiId =
+            res.data.data.headerReservasi[0].detail_reservasi[0].header_reservasi_id);
       })
       .catch(err => console.log(err));
   },
@@ -106,7 +114,13 @@ export default {
                 this.kode +
                 '", jenis: "Tunai", jumlah: "' +
                 this.total +
-                '"){id,nomor,id_detail{id,ref_id}}}'
+                '"){id,nomor,id_detail{id,ref_id}},CreatePembayaran(jenis:"Tunai",jumlah:"' +
+                this.pay +
+                '",referensi:"' +
+                this.kodeDiskon +
+                '",id_header_transaksi:' +
+                this.headerReservasiId +
+                "){jenis}}"
             )
             .then(res => {
               alert("Pembayaran Sukses!");
@@ -125,7 +139,13 @@ export default {
                 this.kodeDiskon +
                 '",diskon:"' +
                 this.nilaiDiskon +
-                '"){id,nomor,id_detail{id,ref_id}}}'
+                '"){id,nomor,id_detail{id,ref_id}},CreatePembayaran(jenis:"Tunai",jumlah:"' +
+                this.pay +
+                '",referensi:"' +
+                this.kodeDiskon +
+                '",id_header_transaksi:' +
+                this.headerReservasiId +
+                "){jenis}}"
             )
             .then(res => {
               alert("Pembayaran Sukses!");

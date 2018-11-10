@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    myapi: process.env.myapi || "https://api.sandbox.kunaku.com"
+    myapi: process.env.myapi || "http://2e535975.ngrok.io"
   },
   mode: "spa",
 
